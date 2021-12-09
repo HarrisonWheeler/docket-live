@@ -1,0 +1,16 @@
+
+  {
+    "name": "docket-live",
+    "version": "1.0.0",
+    "scripts": {
+      "build": "npm run setup:server",
+      "setup:app": "npm run setup:server && npm run setup:client",
+      "setup:client": "cd docket-live.client && npm i",
+      "setup:server": "cd docket-live && npm i",
+      "start": "node docket-live/index.js"
+    },
+    "engines": {
+      "node": "^14.17.0"
+    }
+  }
+  
