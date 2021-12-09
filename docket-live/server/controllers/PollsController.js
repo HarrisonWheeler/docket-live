@@ -23,8 +23,13 @@ export class PollsController extends BaseController {
     }
   }
 
-  getPollById(arg0, getPollById) {
-    throw new Error('Method not implemented.')
+  async getPollById(req, res, next) {
+    try {
+      const poll = await pollsService.getPollById(req.params.id)
+      res.send(poll)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async createPoll(req, res, next) {
