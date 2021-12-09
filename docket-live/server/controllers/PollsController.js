@@ -8,6 +8,10 @@ export class PollsController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAllPolls)
+      .get('/:id', this.getPollById)
+      .post('', this.createPoll)
+      .put('/:id', this.editPoll)
+      .delete('/:id', this.deletePoll)
   }
 
   async getAllPolls(req, res, next) {
@@ -17,5 +21,28 @@ export class PollsController extends BaseController {
     } catch (error) {
       next(error)
     }
+  }
+
+  getPollById(arg0, getPollById) {
+    throw new Error('Method not implemented.')
+  }
+
+  async createPoll(req, res, next) {
+    try {
+      req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
+      const poll = await pollsService.createPoll(req.body)
+      res.send(poll)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  editPoll(arg0, editPoll) {
+    throw new Error('Method not implemented.')
+  }
+
+  deletePoll(arg0, deletePoll) {
+    throw new Error('Method not implemented.')
   }
 }
