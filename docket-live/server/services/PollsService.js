@@ -20,6 +20,10 @@ class PollsService {
   }
 
   async createPoll(body) {
+    const user = await dbContext.Account.findOne({ _id: body.creatorId })
+    if (user.role !== 'staff') {
+      throw new Unauthorized('Only staff can create polls')
+    }
     const polls = await dbContext.Polls.create(body)
     if (!polls) {
       throw new BadRequest('Could not create')
@@ -29,11 +33,12 @@ class PollsService {
 
   async editPoll(body) {
     const orignalPoll = await this.getPollById(body.id)
-    // TODO make role check here instead
-    if (orignalPoll.creatorId.toString() !== body.creatorId) {
-      throw new Unauthorized('Acess Denied, you do not own this poll')
+    const user = await dbContext.Account.findOne({ _id: body.creatorId })
+
+    if (user.role !== 'staff') {
+      throw new Unauthorized('Only staff can alter polls')
     }
-    // TODO make role check here
+
     const edited = await dbContext.Polls.findOneAndUpdate({ _id: orignalPoll.id }, body, { new: true })
     if (!edited) {
       throw new BadRequest('Could Not Edit')
@@ -42,8 +47,11 @@ class PollsService {
   }
 
   async deletePoll(id, userId) {
-    // TODO cange this to role check
-    const deleted = await dbContext.Polls.findOneAndDelete({ _id: id, creatorId: userId })
+    const user = await dbContext.Account.findOne({ _id: userId })
+    if (user.role !== 'staff') {
+      throw new Unauthorized('Only staff can alter polls')
+    }
+    const deleted = await dbContext.Polls.findOneAndDelete({ _id: id })
     if (!deleted) {
       throw new BadRequest('Could Not Delete')
     }
