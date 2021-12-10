@@ -1,7 +1,5 @@
-import { Unauthorized } from '@bcwdev/auth0provider/lib/Errors'
-import { dbContext } from '../db/DbContext.js'
 
-// IMPORTANT profiles should not be updated or modified in any way here. Use the AccountService
+import { dbContext } from '../db/DbContext.js'
 
 class ProfileService {
   /**
