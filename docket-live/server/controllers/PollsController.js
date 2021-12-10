@@ -43,8 +43,15 @@ export class PollsController extends BaseController {
     }
   }
 
-  editPoll(arg0, editPoll) {
-    throw new Error('Method not implemented.')
+  async editPoll(req, res, next) {
+    try {
+      req.body.creatorId = req.userInfo.id
+      req.body.id = req.params.id
+      const poll = await pollsService.editPoll(req.body)
+      res.send(poll)
+    } catch (error) {
+      next(error)
+    }
   }
 
   deletePoll(arg0, deletePoll) {

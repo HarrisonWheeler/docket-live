@@ -1,3 +1,4 @@
+import { Unauthorized } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
 
@@ -24,6 +25,19 @@ class PollsService {
       throw new BadRequest('Could not create')
     }
     return polls
+  }
+
+  async editPoll(body) {
+    const orignalPoll = await this.getPollById(body.id)
+    // TODO make role check here instead
+    if (orignalPoll.creatorId.toString() !== body.creatorId) {
+      throw new Unauthorized('Acess Denied, you do not own this poll')
+    }
+    const edited = await dbContext.Polls.findOneAndUpdate({ _id: orignalPoll.id }, body, { new: true })
+    if (!edited) {
+      throw new BadRequest('Could Not Edit')
+    }
+    return edited
   }
 }
 
