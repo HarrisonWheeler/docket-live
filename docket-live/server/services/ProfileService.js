@@ -4,6 +4,13 @@ import { dbContext } from '../db/DbContext.js'
 // IMPORTANT profiles should not be updated or modified in any way here. Use the AccountService
 
 class ProfileService {
+  async checkUserRole(userId) {
+    const user = await dbContext.Account.findOne({ _id: userId })
+    if (user.role !== 'staff') {
+      throw new Unauthorized('Only staff can alter polls')
+    }
+  }
+
   async addStaffMember(newStaffMember, currentStaffMember) {
     const staffMember = await dbContext.Account.findOne({ _id: currentStaffMember })
     if (staffMember.role !== 'staff') {
