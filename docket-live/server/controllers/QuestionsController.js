@@ -7,7 +7,17 @@ export class QuestionsController extends BaseController {
     super('api/questions')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('/:id', this.getQuestionById)
       .post('', this.createQuestion)
+  }
+
+  async getQuestionById(req, res, next) {
+    try {
+      const question = await questionsService.getQuestionById(req.params.id)
+      res.send(question)
+    } catch (error) {
+      next(error)
+    }
   }
 
   async createQuestion(req, res, next) {

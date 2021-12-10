@@ -8,6 +8,14 @@ class QuestionsService {
     return questions
   }
 
+  async getQuestionById(id) {
+    const question = await dbContext.Questions.findOne({ _id: id })
+    if (!question) {
+      throw new BadRequest('No Question Found')
+    }
+    return question
+  }
+
   async create(body) {
     await profileService.checkUserRole(body.userId)
     const question = await dbContext.Questions.create(body)
