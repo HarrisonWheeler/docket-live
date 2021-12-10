@@ -54,7 +54,12 @@ export class PollsController extends BaseController {
     }
   }
 
-  deletePoll(arg0, deletePoll) {
-    throw new Error('Method not implemented.')
+  async deletePoll(req, res, next) {
+    try {
+      const poll = await pollsService.deletePoll(req.params.id, req.userInfo.id)
+      res.send(poll)
+    } catch (error) {
+      next(error)
+    }
   }
 }

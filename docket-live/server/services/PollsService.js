@@ -33,11 +33,21 @@ class PollsService {
     if (orignalPoll.creatorId.toString() !== body.creatorId) {
       throw new Unauthorized('Acess Denied, you do not own this poll')
     }
+    // TODO make role check here
     const edited = await dbContext.Polls.findOneAndUpdate({ _id: orignalPoll.id }, body, { new: true })
     if (!edited) {
       throw new BadRequest('Could Not Edit')
     }
     return edited
+  }
+
+  async deletePoll(id, userId) {
+    // TODO cange this to role check
+    const deleted = await dbContext.Polls.findOneAndDelete({ _id: id, creatorId: userId })
+    if (!deleted) {
+      throw new BadRequest('Could Not Delete')
+    }
+    return deleted
   }
 }
 
