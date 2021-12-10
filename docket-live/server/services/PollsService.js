@@ -21,7 +21,6 @@ class PollsService {
   }
 
   async createPoll(body) {
-    await profileService.checkUserRole(body.userId)
     const polls = await dbContext.Polls.create(body)
     if (!polls) {
       throw new BadRequest('Could not create')
@@ -31,7 +30,6 @@ class PollsService {
 
   async editPoll(body) {
     const orignalPoll = await this.getPollById(body.id)
-    await profileService.checkUserRole(body.userId)
 
     const edited = await dbContext.Polls.findOneAndUpdate({ _id: orignalPoll.id }, body, { new: true })
     if (!edited) {
@@ -41,7 +39,6 @@ class PollsService {
   }
 
   async deletePoll(id, userId) {
-    await profileService.checkUserRole(userId)
     const deleted = await dbContext.Polls.findOneAndDelete({ _id: id })
     if (!deleted) {
       throw new BadRequest('Could Not Delete')

@@ -17,12 +17,21 @@ class QuestionsService {
   }
 
   async create(body) {
-    await profileService.checkUserRole(body.userId)
     const question = await dbContext.Questions.create(body)
     if (!question) {
-      throw new BadRequest('Could not create')
+      throw new BadRequest('Could Not Create')
     }
     return question
+  }
+
+  async editQuestion(oldQuestion) {
+    const question = await this.getQuestionById(oldQuestion.id)
+    oldQuestion.body = oldQuestion.body == null ? question.body : oldQuestion.body
+    const updated = await dbContext.Questions.findOneAndUpdate({ _id: question.id }, oldQuestion.body, { new: true })
+    if (!updated) {
+      throw new BadRequest('Could Not Update')
+    }
+    return updated
   }
 }
 

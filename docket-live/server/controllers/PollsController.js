@@ -2,6 +2,7 @@ import { Auth0Provider } from '@bcwdev/auth0provider'
 import { pollsService } from '../services/PollsService'
 import { questionsService } from '../services/QuestionsService'
 import BaseController from '../utils/BaseController'
+import { checkRole } from '../utils/CheckRole'
 
 export class PollsController extends BaseController {
   constructor() {
@@ -11,6 +12,7 @@ export class PollsController extends BaseController {
       .get('', this.getAllPolls)
       .get('/:id', this.getPollById)
       .get('/:id/questions', this.getQuestionsByPollId)
+      .use(checkRole)
       .post('', this.createPoll)
       .put('/:id', this.editPoll)
       .delete('/:id', this.deletePoll)
