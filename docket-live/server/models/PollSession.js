@@ -3,7 +3,7 @@ import { Schema } from 'mongoose'
 export const PollSession = new Schema({
   pollId: { type: Schema.Types.ObjectId, ref: 'Poll', required: true },
   className: { type: String, required: true },
-  isActive: { type: Boolean, default: true },
+  isActive: { type: Boolean, default: false },
   isLive: { type: Boolean, default: false }
 
 },
