@@ -1,5 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { pollsService } from '../services/PollsService'
+import { questionsService } from '../services/QuestionsService'
 import BaseController from '../utils/BaseController'
 
 export class PollsController extends BaseController {
@@ -9,6 +10,7 @@ export class PollsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAllPolls)
       .get('/:id', this.getPollById)
+      .get('/:id/questions', this.getQuestionsByPollId)
       .post('', this.createPoll)
       .put('/:id', this.editPoll)
       .delete('/:id', this.deletePoll)
@@ -27,6 +29,15 @@ export class PollsController extends BaseController {
     try {
       const poll = await pollsService.getPollById(req.params.id)
       res.send(poll)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getQuestionsByPollId(req, res, next) {
+    try {
+      const questions = await questionsService.getQuestionsByPollId(req.params.id)
+      res.send(questions)
     } catch (error) {
       next(error)
     }
