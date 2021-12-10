@@ -1,7 +1,17 @@
+import { Unauthorized } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 // Private Methods
 
+async function editRole(newStaffMember, currentStaffMember) {
+  const staffMember = await dbContext.Account.findOne({ _id: currentStaffMember })
+  if (staffMember.role !== 'staff') {
+    throw new Unauthorized('Only staff members may grant this permission')
+  }
+  const newStaff = await dbContext.Account.findOne({ _id: newStaffMember })
+  newStaff.role = 'staff'
+  return await dbContext.Account.findOneAndUpdate({ _id: newStaff.id }, newStaff, { new: true })
+}
 /**
  * Creates account if one does not exist
  * @param {any} account
@@ -58,6 +68,11 @@ class AccountService {
     account = await createAccountIfNeeded(account, user)
     await mergeSubsIfNeeded(account, user)
     return account
+  }
+
+  async addStaffMember(newStaffMemberId, currentStaffMemberId) {
+    const newMember = await editRole(newStaffMemberId, currentStaffMemberId)
+    return newMember
   }
 
   /**

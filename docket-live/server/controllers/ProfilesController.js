@@ -1,4 +1,5 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { accountService } from '../services/AccountService.js'
 import { profileService } from '../services/ProfileService.js'
 import BaseController from '../utils/BaseController'
 
@@ -14,7 +15,7 @@ export class ProfilesController extends BaseController {
 
   async addStaffMember(req, res, next) {
     try {
-      const newStaffMember = await profileService.addStaffMember(req.params.id, req.userInfo.id)
+      const newStaffMember = await accountService.addStaffMember(req.params.id, req.userInfo.id)
       res.send(newStaffMember)
     } catch (error) {
       next(error)

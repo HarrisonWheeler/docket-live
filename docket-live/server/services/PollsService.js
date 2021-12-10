@@ -1,7 +1,6 @@
-import { Unauthorized } from '@bcwdev/auth0provider/lib/Errors'
+
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
-import { profileService } from './ProfileService'
 
 class PollsService {
   async getAllPolls(query = {}) {
