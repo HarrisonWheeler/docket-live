@@ -24,10 +24,12 @@ class QuestionsService {
     return question
   }
 
-  async editQuestion(oldQuestion) {
-    const question = await this.getQuestionById(oldQuestion.id)
-    oldQuestion.body = oldQuestion.body == null ? question.body : oldQuestion.body
-    const updated = await dbContext.Questions.findOneAndUpdate({ _id: question.id }, oldQuestion.body, { new: true })
+  async editQuestion(updatedQuestion) {
+    const question = await this.getQuestionById(updatedQuestion.id)
+    updatedQuestion.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
+    updatedQuestion.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
+    updatedQuestion.pollId = question.pollId
+    const updated = await dbContext.Questions.findOneAndUpdate({ _id: question.id }, updatedQuestion, { new: true })
     if (!updated) {
       throw new BadRequest('Could Not Update')
     }
