@@ -35,6 +35,11 @@ class QuestionsService {
     }
     return updated
   }
+
+  async deleteQuestion(id) {
+    await this.getQuestionById(id)
+    return await dbContext.Questions.findOneAndDelete({ _id: id })
+  }
 }
 
 export const questionsService = new QuestionsService()

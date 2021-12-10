@@ -12,6 +12,7 @@ export class QuestionsController extends BaseController {
       .use(checkRole)
       .post('', this.createQuestion)
       .put('/:id', this.editQuestion)
+      .delete('/:id', this.deleteQuestion)
   }
 
   async getQuestionById(req, res, next) {
@@ -39,6 +40,15 @@ export class QuestionsController extends BaseController {
       req.body.userId = req.userInfo.id
       req.body.id = req.params.id
       const question = await questionsService.editQuestion(req.body)
+      res.send(question)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteQuestion(req, res, next) {
+    try {
+      const question = await questionsService.deleteQuestion(req.params.id)
       res.send(question)
     } catch (error) {
       next(error)
