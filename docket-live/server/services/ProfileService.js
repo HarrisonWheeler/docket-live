@@ -1,8 +1,19 @@
+import { Unauthorized } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext.js'
 
 // IMPORTANT profiles should not be updated or modified in any way here. Use the AccountService
 
 class ProfileService {
+  async addStaffMember(newStaffMember, currentStaffMember) {
+    const staffMember = await dbContext.Account.findOne({ _id: currentStaffMember })
+    if (staffMember.role !== 'staff') {
+      throw new Unauthorized('Only staff members may grant this permission')
+    }
+    const newStaff = await dbContext.Account.findOne({ _id: newStaffMember })
+    newStaff.role = 'staff'
+    return await dbContext.Account.findOneAndUpdate({ _id: newStaff.id }, newStaff, { new: true })
+  }
+
   /**
     * Returns a user profile from its id
     * @param {string} id
