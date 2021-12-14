@@ -12,6 +12,7 @@ export class PollSessionsController extends BaseController {
       .get('/:id', this.getPollSessionById)
       .use(checkRole)
       .post('', this.createPollSession)
+      .put('/:id', this.editPollSession)
   }
 
   async getPollSessions(req, res, next) {
@@ -36,6 +37,16 @@ export class PollSessionsController extends BaseController {
     try {
       req.body.userId = req.userInfo.id
       const session = await pollSessionsService.createSession(req.body)
+      res.send(session)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editPollSession(req, res, next) {
+    try {
+      req.body.id = req.params.id
+      const session = await pollSessionsService.editPollSession(req.body)
       res.send(session)
     } catch (error) {
       next(error)

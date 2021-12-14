@@ -23,6 +23,19 @@ class PollSessionsService {
     await session.populate('poll')
     return session
   }
+
+  async editPollSession(body) {
+    const session = await this.getPollSessionById(body.id)
+    body.userId = session.userId
+    body.className = body.className == null ? body.className : session.className
+    body.isActive = body.isActive == null ? body.isActive : session.isActive
+    body.isLive = body.isLive == null ? body.isLive : session.isLive
+    const updated = await dbContext.PollSessions.findOneAndUpdate({ _id: session.id }, body, { new: true })
+    if (!updated) {
+      throw new BadRequest('Unable To Edit')
+    }
+    return updated
+  }
 }
 
 export const pollSessionsService = new PollSessionsService()

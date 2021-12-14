@@ -26,7 +26,6 @@ export class QuestionsController extends BaseController {
 
   async createQuestion(req, res, next) {
     try {
-      req.body.id = req.params.id
       req.body.userId = req.userInfo.id
       const question = await questionsService.create(req.body)
       res.send(question)
