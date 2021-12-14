@@ -3,7 +3,7 @@ import { dbContext } from '../db/DbContext'
 
 class AnswersService {
   async getByQuestionId(id) {
-    const answers = await dbContext.Answers.find({ quetionId: id })
+    const answers = await dbContext.Answers.find({ quetionId: id }).populate('pollSession')
     if (!answers) {
       throw new BadRequest('This Question Has No Answers Yet')
     }
@@ -11,7 +11,7 @@ class AnswersService {
   }
 
   async getByPollSessionId(id) {
-    const answers = await dbContext.Answers.find({ pollSessionId: id })
+    const answers = await dbContext.Answers.find({ pollSessionId: id }).populate('question')
     if (!answers) {
       throw new BadRequest('This Question Has No Answers Yet')
     }
