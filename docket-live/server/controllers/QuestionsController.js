@@ -10,7 +10,7 @@ export class QuestionsController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id', this.getQuestionById)
-      .get('/:id/answers', this.getAnswersByTemplate)
+      .get('/:id/answers', this.getAnswersByQuestionId)
       .use(checkRole)
       .post('', this.createQuestion)
       .put('/:id', this.editQuestion)
@@ -26,7 +26,7 @@ export class QuestionsController extends BaseController {
     }
   }
 
-  async getAnswersByTemplate(req, res, next) {
+  async getAnswersByQuestionId(req, res, next) {
     try {
       const answers = await answersService.getByQuestionId(req.params.id)
       res.send(answers)

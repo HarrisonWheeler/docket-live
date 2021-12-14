@@ -1,5 +1,6 @@
 import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
+import { pollsService } from './PollsService'
 
 class QuestionsService {
   async getQuestionsByPollId(pollId) {
@@ -16,11 +17,12 @@ class QuestionsService {
   }
 
   async create(body) {
-    const question = await dbContext.Questions.create(body)
-    if (!question) {
-      throw new BadRequest('Could Not Create')
-    }
-    return question
+    const poll = await pollsService.getPollById(body.pollId)
+    poll.questions.push(body)
+    // if (!question) {
+    //   throw new BadRequest('Could Not Create')
+    // }
+    return poll
   }
 
   async editQuestion(updatedQuestion) {
