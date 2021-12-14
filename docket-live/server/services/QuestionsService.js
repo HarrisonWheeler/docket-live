@@ -20,11 +20,12 @@ class QuestionsService {
     const question = await this.getQuestionById(updatedQuestion.pollId, updatedQuestion.id)
     updatedQuestion.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
     updatedQuestion.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
-    const updated = await dbContext.Polls.update({
+    updatedQuestion.pollId = question.pollId
+    const updated = await dbContext.Polls.findOneAndUpdate({
       _id: question.pollId,
       'questions._id': question.id
     }, {
-      $set: { 'questions.$.body': updatedQuestion.body, 'questions.$.choices': updatedQuestion.choices }
+      $set: { 'questions.$': updatedQuestion }
     }
     )
     if (!updated) {
