@@ -16,6 +16,7 @@ export class PollsController extends BaseController {
       .post('', this.createPoll)
       .put('/:id', this.editPoll)
       .delete('/:id', this.deletePoll)
+      .delete('/:id/questions/:questionId', this.deleteQuestion)
   }
 
   async getAllPolls(req, res, next) {
@@ -71,6 +72,15 @@ export class PollsController extends BaseController {
     try {
       const poll = await pollsService.deletePoll(req.params.id, req.userInfo.id)
       res.send(poll)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deleteQuestion(req, res, next) {
+    try {
+      const question = await questionsService.deleteQuestion(req.params.id, req.params.questionId)
+      res.send(question)
     } catch (error) {
       next(error)
     }

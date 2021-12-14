@@ -29,15 +29,19 @@ class QuestionsService {
   }
 
   async deleteQuestion(pollId, questionId) {
-    await this.getQuestionById(pollId)
-    return await dbContext.Polls.update({
+    const question = await this.getQuestionById(pollId, questionId)
+    await dbContext.Polls.updateMany({
       _id: pollId
     },
     {
       $pull: {
-        _id: questionId
+        questions: {
+          _id: questionId
+
+        }
       }
     })
+    return question
   }
 }
 
