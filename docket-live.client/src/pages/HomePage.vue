@@ -5,7 +5,7 @@
      <button class="btn btn-success login" @click="login">
       <b>LOGIN</b> </button>
 
-      <p class="h-25 d-flex align-items-end">Sign In As An Instructor</p>
+
     </div>
   </div>
 </template>
@@ -38,8 +38,8 @@ export default {
   user-select: none;
   .home-card{
     width: 50vw;
-        box-shadow: 0px 8px 8px #196895;
-        border-radius: 5px;
+        box-shadow: 0px 8px 0px #196895;
+        border-radius: 8px;
 
     > img{
       height: 200px;
@@ -51,11 +51,22 @@ export default {
   }
 }
 
+h1{
+  font-family: 'Baloo Bhaijaan 2', cursive;
+  text-shadow: 0px 4px 0px #ABC1CD;
+  font-style: normal;
+font-weight: normal;
+font-size: 100px;
+line-height: 157px;
+width: 512px;
+// height: 157px;
+}
+
 
 
 .login{
-box-shadow: 0px 4px 4px #509C7C;
-border-radius: 5px;
+box-shadow: 0px 4px 0px #509C7C;
+border-radius: 8px;
 border: 1px solid rgba(248, 248, 248, 0.24);
 box-sizing: border-box;
 border-radius: 5px;
