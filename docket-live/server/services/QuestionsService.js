@@ -6,7 +6,7 @@ class QuestionsService {
   async getQuestionById(pollId, questionId) {
     const poll = await dbContext.Polls.find({ _id: pollId, 'questions._id': questionId }, { 'questions.$': 1, _id: questionId })
 
-    return poll
+    return poll[0]
   }
 
   async create(body) {
@@ -17,11 +17,16 @@ class QuestionsService {
   }
 
   async editQuestion(updatedQuestion) {
-    const question = await this.getQuestionById(updatedQuestion.id)
+    const question = await this.getQuestionById(updatedQuestion.pollId, updatedQuestion.id)
     updatedQuestion.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
     updatedQuestion.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
-    updatedQuestion.pollId = question.pollId
-    const updated = await dbContext.Polls.findOneAndUpdate({ _id: question.pollId }, { $set: {} }, { new: true })
+    const updated = await dbContext.Polls.update({
+      _id: question.pollId,
+      'questions._id': question.id
+    }, {
+      $set: { 'questions.$.body': updatedQuestion.body, 'questions.$.choices': updatedQuestion.choices }
+    }
+    )
     if (!updated) {
       throw new BadRequest('Could Not Update')
     }
