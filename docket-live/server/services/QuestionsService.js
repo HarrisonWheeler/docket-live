@@ -3,25 +3,16 @@ import { dbContext } from '../db/DbContext'
 import { pollsService } from './PollsService'
 
 class QuestionsService {
-  async getQuestionsByPollId(pollId) {
-    const questions = await dbContext.Questions.find({ pollId: pollId })
-    return questions
-  }
+  async getQuestionById(pollId, questionId) {
+    const poll = await dbContext.Polls.find({ _id: pollId, 'questions._id': questionId }, { 'questions.$': 1, _id: questionId })
 
-  async getQuestionById(id) {
-    const question = await dbContext.Questions.findOne({ _id: id })
-    if (!question) {
-      throw new BadRequest('No Question Found')
-    }
-    return question
+    return poll
   }
 
   async create(body) {
     const poll = await pollsService.getPollById(body.pollId)
     poll.questions.push(body)
-    // if (!question) {
-    //   throw new BadRequest('Could Not Create')
-    // }
+    poll.save()
     return poll
   }
 
@@ -30,16 +21,23 @@ class QuestionsService {
     updatedQuestion.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
     updatedQuestion.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
     updatedQuestion.pollId = question.pollId
-    const updated = await dbContext.Questions.findOneAndUpdate({ _id: question.id }, updatedQuestion, { new: true })
+    const updated = await dbContext.Polls.findOneAndUpdate({ _id: question.pollId }, { $set: {} }, { new: true })
     if (!updated) {
       throw new BadRequest('Could Not Update')
     }
     return updated
   }
 
-  async deleteQuestion(id) {
-    await this.getQuestionById(id)
-    return await dbContext.Questions.findOneAndDelete({ _id: id })
+  async deleteQuestion(pollId, questionId) {
+    await this.getQuestionById(pollId)
+    return await dbContext.Polls.update({
+      _id: pollId
+    },
+    {
+      $pull: {
+        _id: questionId
+      }
+    })
   }
 }
 

@@ -11,7 +11,7 @@ export class PollsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAllPolls)
       .get('/:id', this.getPollById)
-      .get('/:id/questions', this.getQuestionsByPollId)
+      .get('/:id/questions/:questionId', this.getQuestionById)
       .use(checkRole)
       .post('', this.createPoll)
       .put('/:id', this.editPoll)
@@ -36,9 +36,9 @@ export class PollsController extends BaseController {
     }
   }
 
-  async getQuestionsByPollId(req, res, next) {
+  async getQuestionById(req, res, next) {
     try {
-      const questions = await questionsService.getQuestionsByPollId(req.params.id)
+      const questions = await questionsService.getQuestionById(req.params.id, req.params.questionId)
       res.send(questions)
     } catch (error) {
       next(error)
