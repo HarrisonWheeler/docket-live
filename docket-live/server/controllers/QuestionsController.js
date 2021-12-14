@@ -1,4 +1,5 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { answersService } from '../services/AnswersService'
 import { questionsService } from '../services/QuestionsService'
 import BaseController from '../utils/BaseController'
 import { checkRole } from '../utils/CheckRole'
@@ -9,6 +10,7 @@ export class QuestionsController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id', this.getQuestionById)
+      .get('/:id/answers', this.getAnswersByTemplate)
       .use(checkRole)
       .post('', this.createQuestion)
       .put('/:id', this.editQuestion)
@@ -19,6 +21,15 @@ export class QuestionsController extends BaseController {
     try {
       const question = await questionsService.getQuestionById(req.params.id)
       res.send(question)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAnswersByTemplate(req, res, next) {
+    try {
+      const answers = await answersService.getByQuestionId(req.params.id)
+      res.send(answers)
     } catch (error) {
       next(error)
     }

@@ -1,4 +1,5 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { answersService } from '../services/AnswersService'
 import { pollSessionsService } from '../services/PollSessionsService'
 import BaseController from '../utils/BaseController'
 import { checkRole } from '../utils/CheckRole'
@@ -11,6 +12,7 @@ export class PollSessionsController extends BaseController {
       .get('', this.getPollSessions)
       .get('/:id', this.getPollSessionById)
       .use(checkRole)
+      .get('/:id/answers', this.getAnswersByPollSession)
       .post('', this.createPollSession)
       .put('/:id', this.editPollSession)
   }
@@ -28,6 +30,15 @@ export class PollSessionsController extends BaseController {
     try {
       const session = await pollSessionsService.getPollSessionById(req.params.id)
       res.send(session)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getAnswersByPollSession(req, res, next) {
+    try {
+      const answers = await answersService.getByPollSessionId(req.params.id)
+      res.sed(answers)
     } catch (error) {
       next(error)
     }

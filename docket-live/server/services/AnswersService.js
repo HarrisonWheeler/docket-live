@@ -2,6 +2,22 @@ import { BadRequest } from '@bcwdev/auth0provider/lib/Errors'
 import { dbContext } from '../db/DbContext'
 
 class AnswersService {
+  async getByQuestionId(id) {
+    const answers = await dbContext.Answers.find({ quetionId: id })
+    if (!answers) {
+      throw new BadRequest('This Question Has No Answers Yet')
+    }
+    return answers
+  }
+
+  async getByPollSessionId(id) {
+    const answers = await dbContext.Answers.find({ pollSessionId: id })
+    if (!answers) {
+      throw new BadRequest('This Question Has No Answers Yet')
+    }
+    return answers
+  }
+
   async createAnswer(body) {
     const answer = await dbContext.Answers.create(body)
     if (!body) {
