@@ -26,5 +26,9 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
-
+main{
+  background-image: url('src/assets/img/background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 </style>
