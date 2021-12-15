@@ -14,14 +14,12 @@
   <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center">
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
-<div class="collapse w-100 p-0" :id="'collapse-' + poll.id">
-  <div class="card card-body reveal">
-    Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+<div class="collapse w-100 p-0" :id="'collapse-' + poll.id" @click.stop>
+  <div class="card card-body reveal container-fluid" v-if="poll.questions.length > 0">
+    <QuestionComponent :questions="poll.questions" />
   </div>
-</div>
   </div>
-
-
+  </div>
 </div>
 </template>
 
