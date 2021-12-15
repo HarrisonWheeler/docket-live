@@ -30,25 +30,28 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home{
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
-  .home-card{
-    width: 50vw;
-        box-shadow: 0px 8px 0px #196895;
-        border-radius: 8px;
+@media (min-width: 600px) {
+  .home{
+    display: grid;
+    height: 80vh;
+    place-content: center;
+    text-align: center;
+    user-select: none;
+    .home-card{
+      width: 50vw;
+          box-shadow: 0px 8px 0px #196895;
+          border-radius: 8px;
 
-    > img{
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
+      > img{
+        height: 200px;
+        max-width: 200px;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+      }
     }
   }
+
 }
 
 h1{
@@ -58,8 +61,7 @@ h1{
 font-weight: normal;
 font-size: 100px;
 line-height: 157px;
-width: 512px;
-// height: 157px;
+
 }
 
 

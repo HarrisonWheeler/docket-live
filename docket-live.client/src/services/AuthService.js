@@ -26,6 +26,9 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   AppState.user = AuthService.user
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
+  if(AppState.account.role == 'staff'){
+    router.push({name: 'InstructorLandingPage'})
+  }
   // NOTE if there is something you want to do once the user is authenticated, place that here
 })
 

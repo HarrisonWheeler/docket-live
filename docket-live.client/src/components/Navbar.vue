@@ -40,9 +40,9 @@
               :src="user.picture"
               alt="user photo"
               height="40"
-              class="rounded"
+              class="profileImg"
             />
-            <span class="mx-3 text-success lighten-30">{{ user.name }}</span>
+            <span class="mx-3 text-primary ">{{ user.name }}</span>
           </div>
           <div
             class="dropdown-menu p-0 list-group w-100"
@@ -101,6 +101,10 @@ export default {
 }
 a:hover {
   text-decoration: none;
+}
+
+.profileImg{
+  border-radius: 50%;
 }
 .nav-link{
   text-transform: uppercase;
