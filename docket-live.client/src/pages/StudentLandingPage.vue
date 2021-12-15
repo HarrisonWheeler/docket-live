@@ -3,13 +3,15 @@
   <div class="container-fluid">
     <div class="row height justify-content-center align-items-center">
       <div class="col-md-4 col-11 bg-primary custom-card">
-        <p class="ms-5 mb-1">Enter Poll Code!</p>
+        <p class="ms-5 my-2">Enter Poll Code!</p>
+        <form @submit.prevent="joinPoll">
         <div class="d-flex justify-content-center">
-        <input type="text" class="code-input w-75 text-center" placeholder="xxxx" maxlength="4">
+        <input type="text" class="code-input w-75 text-center" placeholder="xxxx" maxlength="4" required>
         </div>
         <div class="d-flex justify-content-center my-3">
         <button class="btn btn-warning button w-50">Join</button>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -19,7 +21,12 @@
 <script>
 export default {
   setup(){
-    return {}
+    return {
+      joinPoll(){
+        console.log('joining')
+
+      }
+    }
   }
 }
 </script>
@@ -32,6 +39,7 @@ export default {
 
 .custom-card{
   box-shadow: 0px 6px 0px #196895;
+  border-radius: 5px;
 }
 
 .code-input{

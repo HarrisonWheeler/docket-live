@@ -15,7 +15,7 @@ const routes = [
     path: '/join',
     name: 'StudentLandingPage',
     component: loadPage('StudentLandingPage'),
-    // beforeEnter: authSettled
+    beforeEnter: authSettled
   },
   {
     path: '/instructor',
