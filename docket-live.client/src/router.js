@@ -24,13 +24,18 @@ const routes = [
     beforeEnter: authSettled,
     children: [{
       path: 'surveys',
-      name: 'SurveyPage',
-    component: loadPage('SurveyPage'),
+      name: 'SurveysPage',
+    component: loadPage('SurveysPage'),
     beforeEnter: authSettled
     }, {
       path: 'livePolls',
       name: 'LivePollsPage',
     component: loadPage('LivePollsPage'),
+    beforeEnter: authSettled
+    }, {
+      path: 'results',
+      name: 'ResultsPage',
+    component: loadPage('ResultsPage'),
     beforeEnter: authSettled
     }]
   },

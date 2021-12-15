@@ -54,6 +54,7 @@ export default {
 
 }
 
+
 h1{
   font-family: 'Baloo Bhaijaan 2', cursive;
   text-shadow: 0px 4px 0px #ABC1CD;

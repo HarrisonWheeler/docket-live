@@ -3,15 +3,25 @@
   <div class="container">
     <div class="row mt-4 text-center">
       <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
+        <router-link :to="{name: 'LivePollsPage'}">
         <p class="">
         Live polls
         </p>
+        </router-link>
       </div>
       <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
+        <router-link :to="{name: 'SurveysPage'}">
+        <p>
         Surveys
+        </p>
+        </router-link>
       </div>
       <div class="col-md-2 col-3 bg-light border-rounded">
+        <router-link :to="{name: 'ResultsPage'}">
+        <p>
         Results
+        </p>
+        </router-link>
       </div>
     </div>
 <router-view></router-view>
@@ -55,6 +65,10 @@ export default {
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 
+}
+
+.router-link-active{
+  background: #CFDDE4;
 }
 
 .search{

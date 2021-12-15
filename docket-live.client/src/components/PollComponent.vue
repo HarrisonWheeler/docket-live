@@ -15,10 +15,14 @@
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
   </div>
-  <div class="row">
-<div class="collapse w-100 p-0" :id="'collapse-' + poll.id" @click.stop>
-  <div class="card card-body reveal container-fluid" v-if="poll.questions.length > 0">
+  <div class="row w-100">
+<div class="collapse p-0" :id="'collapse-' + poll.id" @click.stop>
+  <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0">
     <QuestionComponent :questions="poll.questions" />
+    <div class="text-end position-absolute spill">
+  <i class="mdi mdi-pencil edit bg-primary p-3 mx-2"></i>
+  <i class="mdi mdi-delete edit bg-danger p-3 mx-3"></i>
+    </div>
   </div>
   </div>
 
@@ -54,6 +58,21 @@ height: 12vh;
   font-size: 30px;
 }
 
+.edit{
+ border-radius: 50%;
+ height: 25px;
+ width: 25px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.spill{
+ transform: translateY(10px);
+ right: 0;
+ bottom: 0;
+
+}
+
 .collapse{
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 0px 0px 5px 5px;
@@ -61,5 +80,6 @@ border-radius: 0px 0px 5px 5px;
 
 .reveal{
 background: #DBE3E8;
+min-height: 15vh;
 }
 </style>
