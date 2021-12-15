@@ -11,6 +11,14 @@ class QuestionsService {
 
   async create(body) {
     const poll = await pollsService.getPollById(body.pollId)
+    if (body.choices.length < 4) {
+      for (let i = 0; i < 4; i++) {
+        const element = body.choices[i]
+        if (!element) {
+          body.choices.push({ content: 'Please Provide An Answer', value: 0 })
+        }
+      }
+    }
     poll.questions.push(body)
     poll.save()
     return poll
