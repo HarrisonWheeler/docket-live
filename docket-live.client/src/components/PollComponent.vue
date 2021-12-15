@@ -20,8 +20,8 @@
   <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0">
     <QuestionComponent :questions="poll.questions" />
     <div class="text-end position-absolute spill">
-  <i class="mdi mdi-pencil edit bg-primary p-3 mx-2"></i>
-  <i class="mdi mdi-delete edit bg-danger p-3 mx-3"></i>
+  <i class="mdi mdi-pencil edit bg-primary p-3 mx-2" title="edit poll"></i>
+  <i class="mdi mdi-delete edit bg-danger p-3 mx-3" title="delete poll"></i>
     </div>
   </div>
   </div>
@@ -63,6 +63,7 @@ height: 12vh;
  height: 25px;
  width: 25px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+cursor: pointer;
 
 }
 

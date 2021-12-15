@@ -1,5 +1,5 @@
 <template>
-  <div class="row justify-content-between" @click.stop v-for="(q, index) in questions" :key="q.id">
+  <div class="row justify-content-between my-4" v-for="(q, index) in questions" :key="q.id">
     <div class="col-md-4">
       {{index + 1}}. {{q.body}}
     </div>
@@ -11,10 +11,15 @@
 
 
 <script>
+import { ref } from "@vue/reactivity"
+import { watchEffect } from "@vue/runtime-core"
 export default {
   props: {questions: {type: Array, required: true}},
-  setup(){
-    return {}
+  setup(props){
+
+    return {
+
+    }
   }
 }
 </script>

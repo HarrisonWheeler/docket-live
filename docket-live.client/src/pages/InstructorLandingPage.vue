@@ -64,6 +64,7 @@ export default {
 <style lang="scss" scoped>
 .content-height{
   height: 75vh;
+  overflow-y: auto;
 }
 
 .border-rounded{
