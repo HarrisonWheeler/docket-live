@@ -27,7 +27,7 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   socketService.authenticate(AuthService.bearer)
   if(AppState.account.role == 'staff'){
-    router.push({name: 'InstructorLandingPage'})
+    router.push({name: 'LivePollsPage'})
   }
   // NOTE if there is something you want to do once the user is authenticated, place that here
 })

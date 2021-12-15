@@ -20,7 +20,18 @@ const routes = [
     path: '/instructor',
     name: 'InstructorLandingPage',
     component: loadPage('InstructorLandingPage'),
+    beforeEnter: authSettled,
+    children: [{
+      path: 'surveys',
+      name: 'SurveyPage',
+    component: loadPage('SurveyPage'),
     beforeEnter: authSettled
+    }, {
+      path: 'livePolls',
+      name: 'LivePollsPage',
+    component: loadPage('LivePollsPage'),
+    beforeEnter: authSettled
+    }]
   },
   {
     path: '/account',

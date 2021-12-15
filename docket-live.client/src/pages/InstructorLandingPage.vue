@@ -14,19 +14,9 @@
         Results
       </div>
     </div>
-    <div class="row justify-content-start content-height">
-      <div class="col-12 bg-light">
-        <div class="row mt-4">
-          <div class="col-6">
-            <input type="text" placeholder="search..." class="search w-100">
-          </div>
-        </div>
-          <div class="row justify-content-center">
-          <PollComponent v-for="p in polls" :key="p.id" :poll="p" />
+<router-view></router-view>
 
-          </div>
-      </div>
-    </div>
+
 
   </div>
 </template>
@@ -48,7 +38,6 @@ export default {
       }
     })
     return{
-      polls: computed(() => AppState.polls)
 
     }
 
