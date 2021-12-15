@@ -2,15 +2,15 @@
     <Navbar />
   <div class="container">
     <div class="row mt-4 text-center">
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1">
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
         <p class="">
         Live polls
         </p>
       </div>
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1">
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
         Surveys
       </div>
-      <div class="col-md-2 col-3 bg-light">
+      <div class="col-md-2 col-3 bg-light border-rounded">
         Results
       </div>
     </div>
@@ -22,7 +22,7 @@
           </div>
         </div>
           <div class="row justify-content-center">
-          <PollComponent />
+          <PollComponent v-for="p in polls" :key="p.id" :poll="p" />
 
           </div>
       </div>
@@ -33,10 +33,24 @@
 
 
 <script>
+import { computed, onMounted } from "@vue/runtime-core"
+import { logger } from "../utils/Logger"
+import {pollsService } from '../services/PollsService'
+import { AppState } from "../AppState"
 
 export default {
   setup(){
-    return
+    onMounted(async() => {
+      try {
+        await pollsService.getPolls()
+      } catch (error) {
+        logger.log(error)
+      }
+    })
+    return{
+      polls: computed(() => AppState.polls)
+
+    }
 
   }
 }
@@ -46,6 +60,12 @@ export default {
 <style lang="scss" scoped>
 .content-height{
   height: 75vh;
+}
+
+.border-rounded{
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
 }
 
 .search{

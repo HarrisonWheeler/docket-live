@@ -1,20 +1,21 @@
 <template>
 <div class="col-11 mt-4 p-0">
- <div class="bg-light w-100 collapse-trigger row align-items-center"   data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+ <div class="bg-light w-100 collapse-trigger row align-items-center"   data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">
    <div class="col-3">
      <p class="m-0">
-     JavaScript
+     <b>{{poll.title}}</b>
      </p>
-     <p class="m-0">Week2</p>
+     <p class="m-0 text-primary">Week2</p>
      </div>
   <div class="col-6 text-center">
-    <p>13 Questions</p>
+    <p class="m-0"><b>{{poll.questions.length}} Questions</b></p>
+    <p class="m-0">Last Edited: {{formatDate(poll.updatedAt)}}</p>
   </div>
   <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center">
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
-<div class="collapse w-100 p-0" id="collapseExample">
-  <div class="card card-body">
+<div class="collapse w-100 p-0" :id="'collapse-' + poll.id">
+  <div class="card card-body reveal">
     Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
   </div>
 </div>
@@ -27,8 +28,14 @@
 
 <script>
 export default {
+  props: {poll: {type: Object, required: true}},
   setup(){
-    return {}
+    return {
+      formatDate(date){
+        const formatted = new Date(date).toLocaleString('en-US', {day: 'numeric', month: 'short', year: 'numeric'})
+        return formatted
+      }
+    }
   }
 }
 </script>
@@ -47,8 +54,11 @@ height: 12vh;
 }
 
 .collapse{
-  background: #DBE3E8 !important;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 0px 0px 5px 5px;
+}
+
+.reveal{
+background: #DBE3E8;
 }
 </style>
