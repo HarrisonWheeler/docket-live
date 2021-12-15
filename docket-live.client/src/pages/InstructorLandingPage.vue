@@ -21,6 +21,10 @@
             <input type="text" placeholder="search..." class="search w-100">
           </div>
         </div>
+          <div class="row justify-content-center">
+          <PollComponent />
+
+          </div>
       </div>
     </div>
 
