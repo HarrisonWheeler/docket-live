@@ -2,22 +2,22 @@
     <Navbar />
   <div class="container">
     <div class="row mt-4 text-center">
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
-        <router-link :to="{name: 'LivePollsPage'}">
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded p-0"  >
+        <router-link class="tab" :to="{name: 'LivePollsPage'}" >
         <p class="">
         Live polls
         </p>
         </router-link>
       </div>
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded">
-        <router-link :to="{name: 'SurveysPage'}">
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded p-0 "  >
+        <router-link class="tab"  :to="{name: 'SurveysPage'}">
         <p>
         Surveys
         </p>
         </router-link>
       </div>
-      <div class="col-md-2 col-3 bg-light border-rounded">
-        <router-link :to="{name: 'ResultsPage'}">
+      <div class="col-md-2 col-3 bg-light border-rounded p-0">
+        <router-link class="tab" :to="{name: 'ResultsPage'}">
         <p>
         Results
         </p>
@@ -37,9 +37,11 @@ import { computed, onMounted } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import {pollsService } from '../services/PollsService'
 import { AppState } from "../AppState"
+import { useRoute } from "vue-router"
 
 export default {
   setup(){
+    const route = useRoute()
     onMounted(async() => {
       try {
         await pollsService.getPolls()
@@ -48,6 +50,9 @@ export default {
       }
     })
     return{
+      route,
+
+
 
     }
 
@@ -64,11 +69,21 @@ export default {
 .border-rounded{
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-
 }
 
-.router-link-active{
-  background: #CFDDE4;
+.tab p{
+  background-color:  #CFDDE4;
+  height: 100%;
+  width: 100%;
+  color: black;
+}
+
+
+
+.router-link-exact-active p{
+  background-color: #F3F2F2 !important;
+  color: #3BA5DC !important;
+
 }
 
 .search{
