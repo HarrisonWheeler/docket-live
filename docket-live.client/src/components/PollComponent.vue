@@ -11,7 +11,10 @@
     <p class="m-0"><b>{{poll.questions.length}} Questions</b></p>
     <p class="m-0">Last Edited: {{formatDate(poll.updatedAt)}}</p>
   </div>
-  <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession">
+  <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-if="!poll.pollId">
+    <i class="mdi mdi-tray-arrow-up icon"></i>
+  </div>
+   <div class="col-md-1 col-3 offset-md-2 bg-warning h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-else>
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
   </div>
