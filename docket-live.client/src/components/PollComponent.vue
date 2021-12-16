@@ -18,10 +18,24 @@
   <div class="row w-100">
 <div class="collapse p-0" :id="'collapse-' + poll.id" @click.stop>
   <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0">
-    <QuestionComponent :questions="poll.questions" />
+    <div v-if="editable">
+      <p>hello edit</p>
+      <EditPollComponent :poll="poll" />
+         <div class="text-end position-absolute spill">
+           <span class="edit bg-success p-3 mx-2">
+             Save
+  <i class="mdi mdi-content-save" title="confirm edit poll" @click="edit"></i>
+           </span>
+  <i class="mdi mdi-cancel edit bg-warning p-3 mx-3" title="cancel edit" @click="toggleEdit"></i>
+    </div>
+    </div>
+    <div v-else>
+      <p>details</p>
+      <PollDetailsComponent :poll="poll" />
     <div class="text-end position-absolute spill">
-  <i class="mdi mdi-pencil edit bg-primary p-3 mx-2" title="edit poll"></i>
+  <i class="mdi mdi-pencil edit bg-primary p-3 mx-2" title="edit poll" @click="toggleEdit"></i>
   <i class="mdi mdi-delete edit bg-danger p-3 mx-3" title="delete poll"></i>
+    </div>
     </div>
   </div>
   </div>
@@ -32,13 +46,28 @@
 
 
 <script>
+import { ref } from "@vue/reactivity"
+import Pop from "../utils/Pop"
 export default {
   props: {poll: {type: Object, required: true}},
   setup(){
+    const editable = ref(false)
     return {
+      editable,
       formatDate(date){
         const formatted = new Date(date).toLocaleString('en-US', {day: 'numeric', month: 'short', year: 'numeric'})
         return formatted
+      },
+      async toggleEdit(){
+        if(editable.value){
+          if(await Pop.confirm('Are You Sure?', 'Your edits will be lost')){
+        editable.value = !editable.value
+          }
+        } else {
+          editable.value = !editable.value
+        }
+        console.log("edit enabled", editable.value);
+
       }
     }
   }
@@ -57,6 +86,7 @@ height: 12vh;
 .icon{
   font-size: 30px;
 }
+
 
 .edit{
  border-radius: 50%;

@@ -2,21 +2,21 @@
     <Navbar />
   <div class="container">
     <div class="row mt-4 text-center">
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded p-0"  >
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 tab-rounded"  >
         <router-link class="tab" :to="{name: 'LivePollsPage'}" >
         <p class="">
         Live polls
         </p>
         </router-link>
       </div>
-      <div class="col-md-2 col-3 bg-light me-md-2 me-1 border-rounded p-0 "  >
+      <div class="col-md-2 col-3 bg-light me-md-2 me-1 tab-rounded p-0 "  >
         <router-link class="tab"  :to="{name: 'SurveysPage'}">
         <p>
         Surveys
         </p>
         </router-link>
       </div>
-      <div class="col-md-2 col-3 bg-light border-rounded p-0">
+      <div class="col-md-2 col-3 bg-light tab-rounded p-0">
         <router-link class="tab" :to="{name: 'ResultsPage'}">
         <p>
         Results
@@ -67,7 +67,7 @@ export default {
   overflow-y: auto;
 }
 
-.border-rounded{
+.tab-rounded{
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }

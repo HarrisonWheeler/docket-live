@@ -4,7 +4,8 @@ import { Question } from './Question'
 export const Poll = new Schema({
   title: { type: String, required: true },
   userId: { type: Schema.Types.ObjectId, required: true },
-  questions: { type: [Question] }
+  questions: { type: [Question] },
+  week: { type: String }
 
 },
 { timestamps: true, toJSON: { virtuals: true } })
