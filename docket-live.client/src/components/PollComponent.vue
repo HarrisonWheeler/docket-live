@@ -17,9 +17,8 @@
   </div>
   <div class="row w-100">
 <div class="collapse p-0" :id="'collapse-' + poll.id" @click.stop>
-  <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0">
+  <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0" :class="{dotted: editable}">
     <div v-if="editable">
-      <p>hello edit</p>
       <EditPollComponent :poll="poll" />
          <div class="text-end position-absolute spill">
            <span class="edit bg-success p-3 mx-2">
@@ -30,7 +29,6 @@
     </div>
     </div>
     <div v-else>
-      <p>details</p>
       <PollDetailsComponent :poll="poll" />
     <div class="text-end position-absolute spill">
   <i class="mdi mdi-pencil edit bg-primary p-3 mx-2" title="edit poll" @click="toggleEdit"></i>
@@ -88,8 +86,13 @@ height: 12vh;
 }
 
 
+.dotted{
+  border: 2px dotted #3BA5DC;
+  border-top: 0;
+}
+
 .edit{
- border-radius: 50%;
+ border-radius: 45px;
  height: 25px;
  width: 25px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);

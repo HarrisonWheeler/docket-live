@@ -2,7 +2,11 @@
   <div class="component">
     <div class="row justify-content-between my-4" v-for="(q, index) in poll.questions" :key="q.id">
     <div class="col-md-4">
+      <p class="m-0">
+  <i class="mdi mdi-alpha-x mdi-24px" title="delete question"></i>
       {{index + 1}}. {{q.body}}
+
+      </p>
     </div>
     <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, index) in q.choices" :key="index">
       <input type="text"  class="w-100" :placeholder="c.content">
