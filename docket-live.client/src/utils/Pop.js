@@ -52,4 +52,20 @@ export default class Pop {
       showConfirmButton: false
     })
   }
+
+  static async createPollSession() {
+    const { value: input } = await Swal.fire({
+      title: 'Please supply the class name',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Go Live!',
+      showLoaderOnConfirm: true
+    })
+    if (input) {
+      return input
+    }
+  }
 }

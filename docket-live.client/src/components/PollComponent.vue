@@ -1,17 +1,17 @@
 <template>
 <div class="col-11 mt-4 p-0">
- <div class="bg-light w-100 collapse-trigger row align-items-center"   data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">
-   <div class="col-3">
+ <div class="bg-light w-100 collapse-trigger row align-items-center">
+   <div class="col-3" data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">
      <p class="m-0">
      <b>{{poll.title}}</b>
      </p>
      <p class="m-0 text-primary">Week2</p>
      </div>
-  <div class="col-6 text-center">
+  <div class="col-6 text-center" data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">
     <p class="m-0"><b>{{poll.questions.length}} Questions</b></p>
     <p class="m-0">Last Edited: {{formatDate(poll.updatedAt)}}</p>
   </div>
-  <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center">
+  <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession">
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
   </div>
@@ -39,6 +39,8 @@
   </div>
 
   </div>
+
+
 </div>
 </template>
 
@@ -65,7 +67,11 @@ export default {
           editable.value = !editable.value
         }
         console.log("edit enabled", editable.value);
-
+      },
+      async createPollSession(){
+        const newPollSession = {}
+        newPollSession.className = await Pop.createPollSession()
+        newPollSession.isLive = true
       }
     }
   }
