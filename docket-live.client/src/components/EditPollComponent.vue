@@ -3,9 +3,13 @@
     <div class="row justify-content-between my-4" v-for="(q, index) in poll.questions" :key="q.id">
     <div class="col-md-4">
       <p class="m-0">
-  <i class="mdi mdi-alpha-x mdi-24px" title="delete question" @click="deleteQuestion(q.id)"></i>
-      {{index + 1}}. {{q.body}}
-
+        <span class="text-danger pointer" @click="deleteQuestion(q.id)" title="Delete Question">
+        X
+        </span>
+        <span class="me-2">
+          {{index + 1}}.
+          </span>
+        <input type="text"  class="w-75 questions" :placeholder="q.body" v-model="newQuestion">
       </p>
     </div>
     <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, index) in q.choices" :key="index">
@@ -83,12 +87,15 @@ export default {
 .answers{
   background: #ABC1CD;
 border-radius: 45px;
+padding-left: .75em;
 }
 
 .questions{
   border: 1px solid #ABC1CD;
 box-sizing: border-box;
 border-radius: 5px;
+padding-left: .75em;
+
 }
 
 .icon{

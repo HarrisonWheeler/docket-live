@@ -88,7 +88,7 @@ export default {
 }
 
 .search{
-  background: #E9EBEC;
+ background: #E9EBEC;
 box-shadow: inset 0px 2px 2px rgba(0, 0, 0, 0.25);
 border-radius: 5px;
 }

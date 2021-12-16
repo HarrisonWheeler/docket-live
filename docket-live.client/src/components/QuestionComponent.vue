@@ -3,8 +3,8 @@
     <div class="col-md-4">
       {{index + 1}}. {{q.body}}
     </div>
-    <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, index) in q.choices" :key="index">
-      <input type="text"  class="w-100" disabled :placeholder="c.content">
+    <div class="col-md-2 col-6 mt-2 mt-md-0" v-for="(c, index) in q.choices" :key="index">
+      <input type="text"  class="w-100 text-center" disabled :placeholder="c.content">
     </div>
   </div>
 </template>
