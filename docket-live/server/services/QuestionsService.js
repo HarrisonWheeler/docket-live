@@ -17,21 +17,13 @@ class QuestionsService {
   }
 
   async editQuestion(updatedQuestion) {
-    const question = await this.getQuestionById(updatedQuestion.pollId, updatedQuestion.id)
-    updatedQuestion.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
-    updatedQuestion.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
-    updatedQuestion.pollId = question.pollId
-    const updated = await dbContext.Polls.findOneAndUpdate({
-      _id: question.pollId,
-      'questions._id': question.id
-    }, {
-      $set: { 'questions.$': updatedQuestion }
-    }
-    )
-    if (!updated) {
-      throw new BadRequest('Could Not Update')
-    }
-    return updated
+    const poll = await pollsService.getPollById(updatedQuestion.pollId)
+    const question = poll.questions.find(q => q.id === updatedQuestion.id)
+    question.body = updatedQuestion.body == null ? question.body : updatedQuestion.body
+    question.choices = updatedQuestion.choices == null ? question.choices : updatedQuestion.choices
+
+    poll.save()
+    return poll
   }
 
   async deleteQuestion(pollId, questionId) {

@@ -15,6 +15,7 @@ export class PollsController extends BaseController {
       .use(checkRole)
       .post('', this.createPoll)
       .put('/:id', this.editPoll)
+      .put('/:id/questions/:questionId', this.editQuestion)
       .delete('/:id', this.deletePoll)
       .delete('/:id/questions/:questionId', this.deleteQuestion)
   }
@@ -63,6 +64,18 @@ export class PollsController extends BaseController {
       req.body.id = req.params.id
       const poll = await pollsService.editPoll(req.body)
       res.send(poll)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async editQuestion(req, res, next) {
+    try {
+      req.body.userId = req.userInfo.id
+      req.body.pollId = req.params.id
+      req.body.id = req.params.questionId
+      const question = await questionsService.editQuestion(req.body)
+      res.send(question)
     } catch (error) {
       next(error)
     }
