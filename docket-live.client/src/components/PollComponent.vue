@@ -87,7 +87,7 @@ height: 12vh;
 
 
 .dotted{
-  border: 2px dotted #3BA5DC;
+  border: 3.5px dashed #3BA5DC;
   border-top: 0;
 }
 
