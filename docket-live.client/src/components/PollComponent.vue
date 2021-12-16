@@ -48,9 +48,11 @@
 <script>
 import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
+import { logger } from "../utils/Logger"
+import {pollSessionsService } from '../services/PollSessionsService'
 export default {
   props: {poll: {type: Object, required: true}},
-  setup(){
+  setup(props){
     const editable = ref(false)
     return {
       editable,
@@ -69,9 +71,15 @@ export default {
         console.log("edit enabled", editable.value);
       },
       async createPollSession(){
-        const newPollSession = {}
-        newPollSession.className = await Pop.createPollSession()
-        newPollSession.isLive = true
+        try {
+          const newPollSession = {}
+          newPollSession.className = await Pop.createPollSession()
+          newPollSession.isLive = true
+          newPollSession.pollId = props.poll.id
+          await pollSessionsService.createPollSession(newPollSession)
+        } catch (error) {
+          logger.error(error)
+        }
       }
     }
   }

@@ -61,8 +61,8 @@ export default class Pop {
         autocapitalize: 'off'
       },
       showCancelButton: true,
-      confirmButtonText: 'Go Live!',
-      showLoaderOnConfirm: true
+      confirmButtonText: 'Go Live!'
+      // showLoaderOnConfirm: true
     })
     if (input) {
       return input
