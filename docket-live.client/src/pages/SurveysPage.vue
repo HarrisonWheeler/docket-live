@@ -3,11 +3,14 @@
       <div class="col-12 bg-light">
         <div class="row mt-4">
           <div class="col-6">
-            <input type="text" placeholder="search..." class="search w-100">
+            <input type="text" placeholder="search..." class="search w-100 ms-md-4">
           </div>
         </div>
           <div class="row justify-content-center">
-          <PollComponent v-for="p in polls" :key="p.id" :poll="p" />
+            <div class="col-12 text-center">
+              <p>Surveys coming soon</p>
+            </div>
+          <!-- <PollComponent v-for="p in polls" :key="p.id" :poll="p" /> -->
 
           </div>
       </div>
@@ -17,8 +20,10 @@
 
 
 <script>
+
 export default {
   setup(){
+
     return {}
   }
 }
