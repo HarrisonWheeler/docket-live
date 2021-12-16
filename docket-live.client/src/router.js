@@ -15,34 +15,40 @@ const routes = [
     path: '/join',
     name: 'StudentLandingPage',
     component: loadPage('StudentLandingPage'),
-    beforeEnter: authSettled
+    beforeEnter: authGuard
   },
   {
     path: '/instructor',
     name: 'InstructorLandingPage',
     component: loadPage('InstructorLandingPage'),
-    beforeEnter: authSettled,
+    beforeEnter: authGuard,
     children: [{
       path: 'surveys',
       name: 'SurveysPage',
     component: loadPage('SurveysPage'),
-    beforeEnter: authSettled
+    beforeEnter: authGuard
     }, {
       path: 'livePolls',
       name: 'LivePollsPage',
     component: loadPage('LivePollsPage'),
-    beforeEnter: authSettled
+    beforeEnter: authGuard
     }, {
       path: 'results',
       name: 'ResultsPage',
     component: loadPage('ResultsPage'),
-    beforeEnter: authSettled
+    beforeEnter: authGuard
     }]
   },
   {
     path: '/account',
     name: 'Account',
     component: loadPage('AccountPage'),
+    beforeEnter: authGuard
+  },
+  {
+    path: '/startLivePoll/:id',
+    name: 'StartLivePollPage',
+    component: loadPage('StartLivePollPage'),
     beforeEnter: authGuard
   }
 ]

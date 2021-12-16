@@ -14,7 +14,7 @@
   <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-if="!poll.pollId">
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
-   <div class="col-md-1 col-3 offset-md-2 bg-warning h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-else>
+   <div class="col-md-1 col-3 offset-md-2 bg-warning h-100 d-flex align-items-center justify-content-center" title="Go Live" v-else>
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
   </div>
@@ -53,6 +53,7 @@ import { ref } from "@vue/reactivity"
 import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import {pollSessionsService } from '../services/PollSessionsService'
+import { router } from "../router"
 export default {
   props: {poll: {type: Object, required: true}},
   setup(props){
@@ -79,7 +80,8 @@ export default {
           newPollSession.className = await Pop.createPollSession()
           newPollSession.isLive = true
           newPollSession.pollId = props.poll.id
-          await pollSessionsService.createPollSession(newPollSession)
+          const pollSessionId = await pollSessionsService.createPollSession(newPollSession)
+          router.push({name: 'StartLivePollPage', params: {id: pollSessionId }})
         } catch (error) {
           logger.error(error)
         }
