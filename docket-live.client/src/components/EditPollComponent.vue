@@ -9,7 +9,7 @@
       </p>
     </div>
     <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, index) in q.choices" :key="index">
-      <input type="text"  class="w-100" :placeholder="c.content">
+      <input type="text"  class="w-100 answers" :placeholder="c.content">
     </div>
   </div>
     <!-- ------------------------------------- New Question Inputs -------------------------- -->
@@ -21,22 +21,22 @@
 
           </div>
           <div class="col-9 p-0">
-        <input type="text"  class="w-100" placeholder="Question..." v-model="newQuestion">
+        <input type="text"  class="w-100 questions" placeholder="Question..." v-model="newQuestion">
 
           </div>
         </div>
       </div>
       <div class="col-md-2 col-6 mt-2 mt-md-0">
-        <input type="text" disabled class="w-100" placeholder="Great">
+        <input type="text" disabled class="w-100 answers" placeholder="Great">
       </div>
       <div class="col-md-2 col-6 mt-2 mt-md-0">
-        <input type="text" disabled class="w-100" placeholder="Ok">
+        <input type="text" disabled class="w-100 answers" placeholder="Ok">
       </div>
       <div class="col-md-2 col-6 mt-2 mt-md-0">
-        <input type="text" disabled class="w-100" placeholder="Struggling">
+        <input type="text" disabled class="w-100 answers" placeholder="Struggling">
       </div>
       <div class="col-md-2 col-6 mt-2 mt-md-0">
-        <input type="text" disabled class="w-100" placeholder="Totally Lost">
+        <input type="text" disabled class="w-100 answers" placeholder="Totally Lost">
       </div>
     </div>
   </div>
@@ -80,9 +80,15 @@ export default {
 
 
 <style lang="scss" scoped>
-input{
+.answers{
   background: #ABC1CD;
 border-radius: 45px;
+}
+
+.questions{
+  border: 1px solid #ABC1CD;
+box-sizing: border-box;
+border-radius: 5px;
 }
 
 .icon{

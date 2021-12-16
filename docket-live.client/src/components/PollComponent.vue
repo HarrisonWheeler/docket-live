@@ -58,7 +58,7 @@ export default {
       },
       async toggleEdit(){
         if(editable.value){
-          if(await Pop.confirm('Are You Sure?', 'Your edits will be lost')){
+          if(await Pop.confirm('Are You Sure?', 'Your edits will be lost', 'warning', 'Yes remove edits')){
         editable.value = !editable.value
           }
         } else {

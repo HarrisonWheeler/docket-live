@@ -6,6 +6,8 @@ export const PollSession = new Schema({
   className: { type: String, required: true },
   isActive: { type: Boolean, default: false },
   isLive: { type: Boolean, default: false }
+  // TODO util that generates code for session
+  // sessionCode: {type: String, }
 
 },
 { timestamps: true, toJSON: { virtuals: true } })
