@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <GameNavbar />
     <div class="row text-center">
       <div class="col-12" v-if="activeSession.poll">
         <h1 class="text-light">{{activeSession.poll.title}}</h1>
