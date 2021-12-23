@@ -7,7 +7,7 @@ import { api } from "./AxiosService"
 class PollSessionsService{
 
 
-  async getById(){
+  async getById(id){
     const res = await api.get('api/pollSessions/' + id)
     AppState.activeSession = res.data
   }

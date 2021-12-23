@@ -13,9 +13,17 @@
 <script>
 import { computed } from "@vue/reactivity"
 import { AuthService } from "../services/AuthService"
+import { watchEffect } from "@vue/runtime-core"
+import { AppState } from "../AppState"
+import { router } from "../router"
 export default {
   name: 'Home',
   setup(){
+    watchEffect(() => {
+        if(AppState.account.role == 'staff'){
+    router.push({name: 'LivePollsPage'})
+  }
+    })
     return{
        user: computed(() => AppState.user),
       async login() {
