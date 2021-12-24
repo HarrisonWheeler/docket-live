@@ -9,7 +9,8 @@
     <div class="col-md-6 col-8 d-flex align-items-center justify-content-end">
       <button class="btn nav-btn me-5 w-25 d-none d-md-block">Cancel Poll</button>
       <button class="btn nav-btn me-5 w-50 d-block d-md-none">Cancel Poll</button>
-      <i class="mdi mdi-music-note-eighth nav-icon mdi-36px"></i>
+      <i class="mdi mdi-music-note-eighth nav-icon mdi-36px" @click="toggleAudio" v-if="!muted"></i>
+      <i class="mdi mdi-volume-mute nav-icon mdi-36px" @click="toggleAudio" v-else></i>
     <audio loop  id="theme">
     <source src="../assets/audio/Docket-live-theme.mp3"></audio>
     </div>
@@ -18,16 +19,24 @@
 
 
 <script>
-import { onMounted } from "@vue/runtime-core"
+import { onMounted, ref } from "@vue/runtime-core"
 export default {
   setup(){
+    const muted = ref(false)
     onMounted(() => {
       setTimeout(() => {
         const song = document.getElementById('theme')
         song.play()
       }, 2000)
     })
-    return {}
+    return {
+      muted,
+      toggleAudio(){
+        muted.value = !muted.value
+        const music = document.getElementById('theme')
+        muted.value ? music.pause() : music.play()
+      }
+    }
   }
 }
 </script>

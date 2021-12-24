@@ -12,25 +12,25 @@
 
         </p>
       </div>
-      <div class="col-10">
+      <div class="col-md-10">
         <p class="text-warning m-0 question-label">Question 1</p>
       </div>
-      <div class="col-10 question-area d-flex align-items-center justify-content-center">
+      <div class="col-md-10 question-area d-flex align-items-center justify-content-center">
         <h1 class="question">{{activeQuestion.body}}?</h1>
       </div>
       <div class="col-12 text-center">
-        <span class="timer">0</span>
+        <span class="timer">{{time}}</span>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <button class="btn btn-success w-100 choice mt-5">{{activeQuestion.choices[0].content}}</button>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <button class="btn btn-primary w-100 choice mt-5">{{activeQuestion.choices[1].content}}</button>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <button class="btn btn-warning w-100 choice my-3">{{activeQuestion.choices[2].content}}</button>
       </div>
-      <div class="col-md-6">
+      <div class="col-6">
         <button class="btn btn-danger w-100 choice my-3">{{activeQuestion.choices[3].content}}</button>
       </div>
     </div>
@@ -39,7 +39,7 @@
 
 
 <script>
-import { computed, onMounted } from "@vue/runtime-core"
+import { computed, onMounted, ref } from "@vue/runtime-core"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
@@ -48,16 +48,20 @@ import { logger } from "../utils/Logger"
 export default {
   setup(){
     const route = useRoute()
+    const time = ref(60)
     onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
-
+         setInterval(() => {
+          time.value -= 1
+        }, 1000)
       } catch (error) {
         logger.error(error)
       }
     })
     return {
+      time,
       activeSession: computed(() => AppState.activeSession),
       activeQuestion: computed(() => AppState.activeQuestion)
 
