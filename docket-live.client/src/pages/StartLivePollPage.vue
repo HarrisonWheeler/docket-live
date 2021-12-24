@@ -14,8 +14,8 @@
       <div class="col-3">
         <p class="text-warning m-0">Who's All Here?</p>
       </div>
-      <div class="col-4">
-            <button class="btn start-poll ms-5 ">Start Poll</button>
+      <div class="col-4 d-flex justify-content-center">
+            <button class="btn start-poll ms-2 ">Start Poll</button>
       </div>
       <div class="col-3 text-end">
         <span class="join-timer p-3 text-center">10</span>
@@ -96,8 +96,6 @@ position: absolute;
  transform: translateY(5px);
 z-index: 1000;
 width: 250px;
-// top: 50%;
-left: 50%;
 }
 
 .join-timer{
@@ -109,6 +107,11 @@ height: 64px;
 position: absolute;
  transform: translateY(-4px);
 z-index: 1000;
+    right: 7%;
+        display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
 }
 
 .player-bubble{

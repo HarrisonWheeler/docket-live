@@ -10,13 +10,22 @@
       <button class="btn nav-btn me-5 w-25">Cancel Poll</button>
       <i class="mdi mdi-music-note-eighth nav-icon mdi-36px"></i>
     </div>
+    <audio loop  id="theme">
+    <source src="../assets/audio/Docket-live-theme.mp3"></audio>
   </div>
 </template>
 
 
 <script>
+import { onMounted } from "@vue/runtime-core"
 export default {
   setup(){
+    onMounted(() => {
+      setTimeout(() => {
+        const song = document.getElementById('theme')
+        song.play()
+      }, 2000)
+    })
     return {}
   }
 }
