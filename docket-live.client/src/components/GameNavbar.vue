@@ -1,13 +1,14 @@
 <template>
   <div class="row my-2">
-    <div class="col-6 d-flex align-items-center">
+    <div class="col-md-6 col-4 d-flex align-items-center">
     <i class="mdi mdi-eye nav-icon mdi-24px"></i>
     <i class="mdi mdi-arrow-right-thin nav-icon ms-5"></i>
 
     </div>
 
-    <div class="col-6 d-flex align-items-center justify-content-end">
-      <button class="btn nav-btn me-5 w-25">Cancel Poll</button>
+    <div class="col-md-6 col-8 d-flex align-items-center justify-content-end">
+      <button class="btn nav-btn me-5 w-25 d-none d-md-block">Cancel Poll</button>
+      <button class="btn nav-btn me-5 w-50 d-block d-md-none">Cancel Poll</button>
       <i class="mdi mdi-music-note-eighth nav-icon mdi-36px"></i>
     </div>
     <audio loop  id="theme">
