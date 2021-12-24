@@ -14,9 +14,9 @@
       <div class="col-3">
         <p class="text-warning m-0">Who's All Here?</p>
       </div>
-      <div class="col-4 d-flex justify-content-center">
+      <div class="col-4 d-flex justify-content-center" v-if="account.role == 'staff'">
             <button class="btn start-timer ms-2 " v-if="!timer"  @click="startTimer">Start Timer?</button>
-            <button class="btn start-poll ms-2 " v-else>Start Poll</button>
+            <button class="btn start-poll ms-2 " v-else @click="startPoll">Start Poll</button>
       </div>
       <div class="col-3 text-end">
         <span class="join-timer p-3 text-center">{{time}}</span>
@@ -42,6 +42,7 @@ import { onMounted } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
+import { router } from "../router"
 export default {
   setup(){
     const route = useRoute()
@@ -57,6 +58,7 @@ export default {
     return {
       timer,
       time,
+      account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
       startTimer(){
         timer.value = true
@@ -64,6 +66,9 @@ export default {
           time.value -= 1
           console.log(time.value)
         }, 1000)
+      },
+      startPoll(){
+        router.push({name: 'QuestionPage', params: {id: route.params.id, index: 1}})
       }
     }
   }

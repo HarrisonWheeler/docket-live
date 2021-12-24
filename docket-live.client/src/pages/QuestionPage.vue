@@ -21,7 +21,10 @@
       <div class="col-12 text-center">
         <span class="timer">{{time}}</span>
       </div>
-      <div class="col-6">
+
+    </div>
+    <div class="row" v-if="account.role !== 'staff'">
+       <div class="col-6">
         <button class="btn btn-success w-100 choice mt-5">{{activeQuestion.choices[0].content}}</button>
       </div>
       <div class="col-6">
@@ -33,6 +36,33 @@
       <div class="col-6">
         <button class="btn btn-danger w-100 choice my-3">{{activeQuestion.choices[3].content}}</button>
       </div>
+    </div>
+
+    <div class="row justify-content-center mt-5" v-else>
+      <div class="col-10 results">
+        <div class="row">
+          <div class="col-4 mt-4">
+            1
+          </div>
+          <div class="col-4 text-center mt-4">
+        <span class="m-0 collect">
+           Collecting Results
+           </span>
+            <div class="dot-pulse"></div>
+          </div>
+          <div class="col-4 text-end mt-4">
+            8
+          </div>
+        </div>
+         <div class="progress mt-3">
+          <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+
+          <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+
+          <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -62,6 +92,7 @@ export default {
     })
     return {
       time,
+      account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
       activeQuestion: computed(() => AppState.activeQuestion)
 
@@ -143,6 +174,107 @@ box-shadow: 0px 5px 0px #CE4778;
 border-radius: 5px;
 color: #7D2646;
 font-size: 24px;
+}
+
+.results{
+  height: 20vh;
+  background: #F3F2F2;
+box-shadow: 0px 5px 0px #C1C1C1;
+border-radius: 5px;
+}
+
+.progress{
+  border: 2px solid #ABC1CD;
+border-radius: 50px;
+height: 5vh;
+}
+
+.progress-bar{
+ border-radius: 0px 15px 15px 0px;
+border-left: none;
+}
+
+
+.collect{
+  color: #7A8F99;
+  font-size: 24px;
+}
+
+
+.dot-pulse {
+  position: relative;
+  left: -9999px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+  box-shadow: 9999px 0 0 -5px #9880ff;
+  animation: dotPulse 1.5s infinite linear;
+  animation-delay: .25s;
+}
+
+.dot-pulse::before, .dot-pulse::after {
+  content: '';
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #9880ff;
+  color: #9880ff;
+}
+
+.dot-pulse::before {
+  box-shadow: 9984px 0 0 -5px #9880ff;
+  animation: dotPulseBefore 1.5s infinite linear;
+  animation-delay: 0s;
+}
+
+.dot-pulse::after {
+  box-shadow: 10014px 0 0 -5px #9880ff;
+  animation: dotPulseAfter 1.5s infinite linear;
+  animation-delay: .5s;
+}
+
+@keyframes dotPulseBefore {
+  0% {
+    box-shadow: 9984px 0 0 -5px #9880ff;
+  }
+  30% {
+    box-shadow: 9984px 0 0 2px #9880ff;
+  }
+  60%,
+  100% {
+    box-shadow: 9984px 0 0 -5px #9880ff;
+  }
+}
+
+@keyframes dotPulse {
+  0% {
+    box-shadow: 9999px 0 0 -5px #9880ff;
+  }
+  30% {
+    box-shadow: 9999px 0 0 2px #9880ff;
+  }
+  60%,
+  100% {
+    box-shadow: 9999px 0 0 -5px #9880ff;
+  }
+}
+
+@keyframes dotPulseAfter {
+  0% {
+    box-shadow: 10014px 0 0 -5px #9880ff;
+  }
+  30% {
+    box-shadow: 10014px 0 0 2px #9880ff;
+  }
+  60%,
+  100% {
+    box-shadow: 10014px 0 0 -5px #9880ff;
+  }
 }
 
 </style>
