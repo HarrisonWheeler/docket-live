@@ -10,6 +10,7 @@ class PollSessionsService{
   async getById(id){
     const res = await api.get('api/pollSessions/' + id)
     AppState.activeSession = res.data
+    return res.data
   }
 
   async getResults(){

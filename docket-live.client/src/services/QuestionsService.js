@@ -4,6 +4,13 @@ import { api } from "./AxiosService"
 
 
 class QuestionsService {
+
+
+  async setActiveQuestion(index){
+    let num = Number(index)
+    AppState.activeQuestion = AppState.activeSession.poll?.questions[num]
+    logger.log(AppState.activeQuestion)
+  }
 async addQuestion(newQuestion){
   const res = await api.post('api/questions', newQuestion)
   logger.log(res.data)

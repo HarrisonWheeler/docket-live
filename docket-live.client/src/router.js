@@ -50,6 +50,12 @@ const routes = [
     name: 'StartLivePollPage',
     component: loadPage('StartLivePollPage'),
     beforeEnter: authGuard
+  },
+  {
+    path: '/startLivePoll/:id/question/:index',
+    name: 'QuestionPage',
+    component: loadPage('QuestionPage'),
+    beforeEnter: authGuard
   }
 ]
 
