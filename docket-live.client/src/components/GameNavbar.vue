@@ -10,9 +10,9 @@
       <button class="btn nav-btn me-5 w-25 d-none d-md-block">Cancel Poll</button>
       <button class="btn nav-btn me-5 w-50 d-block d-md-none">Cancel Poll</button>
       <i class="mdi mdi-music-note-eighth nav-icon mdi-36px"></i>
-    </div>
     <audio loop  id="theme">
     <source src="../assets/audio/Docket-live-theme.mp3"></audio>
+    </div>
   </div>
 </template>
 

@@ -15,10 +15,11 @@
         <p class="text-warning m-0">Who's All Here?</p>
       </div>
       <div class="col-4 d-flex justify-content-center">
-            <button class="btn start-poll ms-2 ">Start Poll</button>
+            <button class="btn start-timer ms-2 " v-if="!timer"  @click="startTimer">Start Timer?</button>
+            <button class="btn start-poll ms-2 " v-else>Start Poll</button>
       </div>
       <div class="col-3 text-end">
-        <span class="join-timer p-3 text-center">10</span>
+        <span class="join-timer p-3 text-center">{{time}}</span>
       </div>
       <div class="col-10 player-area">
         <div class="row">
@@ -35,7 +36,7 @@
 
 
 <script>
-import { computed } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import { AppState } from "../AppState"
 import { onMounted } from "@vue/runtime-core"
 import { logger } from "../utils/Logger"
@@ -44,6 +45,8 @@ import { useRoute } from "vue-router"
 export default {
   setup(){
     const route = useRoute()
+    const timer = ref(false)
+    const time =  ref(60)
     onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
@@ -52,7 +55,16 @@ export default {
       }
     })
     return {
-      activeSession: computed(() => AppState.activeSession)
+      timer,
+      time,
+      activeSession: computed(() => AppState.activeSession),
+      startTimer(){
+        timer.value = true
+        setInterval(() => {
+          time.value -= 1
+          console.log(time.value)
+        }, 1000)
+      }
     }
   }
 }
@@ -91,6 +103,16 @@ height: 55vh;
 .start-poll{
   background: #86E29B;
 box-shadow: 0px 4px 0px #57A480;
+border-radius: 50px;
+position: absolute;
+ transform: translateY(5px);
+z-index: 1000;
+width: 250px;
+}
+
+.start-timer{
+  background: #3BA5DC;
+box-shadow: 0px 4px 0px #196895;
 border-radius: 50px;
 position: absolute;
  transform: translateY(5px);
