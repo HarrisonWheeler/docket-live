@@ -14,7 +14,10 @@
   <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-if="!poll.pollId">
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
-   <div class="col-md-1 col-3 offset-md-2 bg-warning h-100 d-flex align-items-center justify-content-center" title="Go Live" v-else>
+   <div class="col-md-1 col-3 offset-md-2 bg-primary h-100 d-flex align-items-center justify-content-center" title="View Results" v-else-if="!poll.isLive">
+    <i class="mdi mdi-eye icon"></i>
+  </div>
+   <div class="col-md-1 col-3 offset-md-2 bg-warning h-100 d-flex align-items-center justify-content-center" title="End Session" v-else>
     <i class="mdi mdi-tray-arrow-up icon"></i>
   </div>
   </div>
@@ -89,7 +92,11 @@ export default {
       },
       async editPoll(){
         try {
-          await pollsService.editPoll(props.poll)
+          if(await Pop.confirm('Are You Sure?', 'Your edits will be applied', 'warning', 'Yes save changes')){
+            editable.value = !editable.value
+            await pollsService.editPoll(props.poll)
+
+          }
         } catch (error) {
           logger.error(error)
         }

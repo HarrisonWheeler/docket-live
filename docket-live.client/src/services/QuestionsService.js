@@ -8,6 +8,7 @@ class QuestionsService {
 
   async setActiveQuestion(index){
     let num = Number(index)
+    num--
     AppState.activeQuestion = AppState.activeSession.poll?.questions[num]
     logger.log(AppState.activeQuestion)
   }

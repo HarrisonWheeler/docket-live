@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
+  <div class="container-fluid" v-if="activeQuestion.choices">
     <GameNavbar />
-    <div class="row justify-content-center" v-if="activeQuestion.choices">
+    <div class="row justify-content-center">
       <div class="col-12 text-center mb-4" v-if="activeSession.poll">
         <p class="title text-light m-0">
           {{activeSession.poll.title}}
@@ -17,13 +17,18 @@
       </div>
       <div class="col-md-10 question-area d-flex align-items-center justify-content-center">
         <h1 class="question">{{activeQuestion.body}}?</h1>
+
       </div>
       <div class="col-12 text-center">
         <span class="timer">{{time}}</span>
       </div>
+      <div class="col-10 text-end" v-if="account.role === 'staff'">
+        <button class="btn move-on" :class="{'custom-disable': routeIndex === activeSession.poll?.questions.length}" @click="nextQuestion">Move on</button>
+      </div>
+
 
     </div>
-    <div class="row" v-if="account.role !== 'staff'">
+    <div class="row" v-if="account.role !== 'staff'" >
        <div class="col-6">
         <button class="btn btn-success w-100 choice mt-5">{{activeQuestion.choices[0].content}}</button>
       </div>
@@ -45,10 +50,16 @@
             1
           </div>
           <div class="col-4 text-center mt-4">
-        <span class="m-0 collect">
+            <div class="row ">
+              <div class="col-6 text-center">
+                  <p class="collecting">
            Collecting Results
-           </span>
+            </p>
+              </div>
+              <div class="col-6 mt-3 text-center">
             <div class="dot-pulse"></div>
+              </div>
+            </div>
           </div>
           <div class="col-4 text-end mt-4">
             8
@@ -75,6 +86,7 @@ import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
 import { questionsService } from "../services/QuestionsService"
 import { logger } from "../utils/Logger"
+import { router } from "../router"
 export default {
   setup(){
     const route = useRoute()
@@ -92,9 +104,17 @@ export default {
     })
     return {
       time,
+      route,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
-      activeQuestion: computed(() => AppState.activeQuestion)
+      activeQuestion: computed(() => AppState.activeQuestion),
+      routeIndex: computed(() => parseInt(route.params.index, 10)),
+      async nextQuestion(){
+        let nextQuestion = parseInt(route.params.index, 10)
+        nextQuestion++
+        router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
+        await questionsService.setActiveQuestion(nextQuestion)
+      }
 
     }
   }
@@ -105,6 +125,13 @@ export default {
 <style lang="scss" scoped>
 .title{
   font-size: 36px;
+}
+
+.custom-disable{
+  cursor: not-allowed;
+    pointer-events: all;
+    filter: grayscale(10%);
+    opacity: .5;
 }
 
 .class{
@@ -144,8 +171,24 @@ z-index: 1000;
     font-size: 36px;
 }
 
+
+.move-on{
+      position: absolute;
+    right: 10%;
+    transform: translateY(-20px);
+    background: #3BA5DC;
+box-shadow: 0px 4px 0px #27688C;
+border-radius: 50px;
+color: white;
+}
+
 .choice{
   height: 15vh;
+}
+
+.collecting{
+  color: #7A8F99;
+  font-size: 18px;
 }
 
 .btn-success{
@@ -204,8 +247,8 @@ border-left: none;
 .dot-pulse {
   position: relative;
   left: -9999px;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   border-radius: 5px;
   background-color: #9880ff;
   color: #9880ff;
@@ -219,8 +262,8 @@ border-left: none;
   display: inline-block;
   position: absolute;
   top: 0;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   border-radius: 5px;
   background-color: #9880ff;
   color: #9880ff;
