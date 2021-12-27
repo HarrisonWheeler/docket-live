@@ -24,7 +24,7 @@
     <div v-if="editable">
       <EditPollComponent :poll="poll" />
          <div class="text-end position-absolute spill">
-           <span class="edit bg-success p-3 mx-2">
+           <span class="edit bg-success p-3 mx-2" @click="editPoll">
              Save
   <i class="mdi mdi-content-save" title="confirm edit poll" @click="edit"></i>
            </span>
@@ -54,6 +54,7 @@ import Pop from "../utils/Pop"
 import { logger } from "../utils/Logger"
 import {pollSessionsService } from '../services/PollSessionsService'
 import { router } from "../router"
+import { pollsService } from "../services/PollsService"
 export default {
   props: {poll: {type: Object, required: true}},
   setup(props){
@@ -82,6 +83,13 @@ export default {
           newPollSession.pollId = props.poll.id
           const pollSessionId = await pollSessionsService.createPollSession(newPollSession)
           router.push({name: 'StartLivePollPage', params: {id: pollSessionId }})
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async editPoll(){
+        try {
+          await pollsService.editPoll(props.poll)
         } catch (error) {
           logger.error(error)
         }

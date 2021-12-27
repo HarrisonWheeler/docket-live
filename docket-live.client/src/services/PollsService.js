@@ -8,6 +8,13 @@ class PollsService{
     logger.log(res.data)
     AppState.polls = res.data
   }
+
+  async editPoll(poll){
+    const res = await api.put('api/polls/' + poll.id, poll)
+    logger.log(res.data)
+    const index = AppState.polls.findIndex(p => p.id === poll.id)
+    AppState.polls.splice(index, 1, res.data)
+  }
 }
 
 

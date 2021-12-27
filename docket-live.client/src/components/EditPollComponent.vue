@@ -1,5 +1,5 @@
 <template>
-  <div class="component">
+  <div class="component" v-if="poll.questions">
     <div class="row justify-content-between my-4" v-for="(q, index) in poll.questions" :key="q.id">
     <div class="col-md-4">
       <p class="m-0">
@@ -9,11 +9,11 @@
         <span class="me-2">
           {{index + 1}}.
           </span>
-        <input type="text"  class="w-75 questions" :placeholder="q.body" v-model="newQuestion">
+        <input type="text"  class="w-75 questions" :placeholder="q.body" v-model="poll.questions[index].body">
       </p>
     </div>
-    <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, index) in q.choices" :key="index">
-      <input type="text"  class="w-100 answers" :placeholder="c.content">
+    <div class="col-md-2 col-6 mt-2 mt-md-0 " v-for="(c, i) in q.choices" :key="i" >
+      <input type="text"  class="w-100 answers" :placeholder="c.content" v-model="poll.questions[index].choices[i].content">
     </div>
   </div>
     <!-- ------------------------------------- New Question Inputs -------------------------- -->
@@ -52,6 +52,7 @@ import { ref } from "@vue/reactivity"
 import {questionsService} from '../services/QuestionsService'
 import { logger } from "../utils/Logger"
 import Pop from "../utils/Pop"
+import { pollsService } from "../services/PollsService"
 export default {
   props: {poll: {type: Object, required: true}},
   setup(props){
