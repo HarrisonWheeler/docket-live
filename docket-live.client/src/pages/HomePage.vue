@@ -5,6 +5,8 @@
      <button class="btn btn-success login" @click="login">
       <b>LOGIN</b> </button>
 
+      <button @click="logout">Logout</button>
+
 
     </div>
   </div>

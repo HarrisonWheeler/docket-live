@@ -23,7 +23,8 @@
         <span class="timer">{{time}}</span>
       </div>
       <div class="col-10 text-end" v-if="account.role === 'staff'">
-        <button class="btn move-on" :class="{'custom-disable': routeIndex === activeSession.poll?.questions.length}" @click="nextQuestion">Move on</button>
+        <button class="btn move-on" v-if="routeIndex < activeSession.poll?.questions.length" @click="nextQuestion">Move on</button>
+         <button class="btn finish-poll" v-else @click="finishPoll">Finish Poll</button>
       </div>
 
 
@@ -127,12 +128,7 @@ export default {
   font-size: 36px;
 }
 
-.custom-disable{
-  cursor: not-allowed;
-    pointer-events: all;
-    filter: grayscale(10%);
-    opacity: .5;
-}
+
 
 .class{
   font-size: 28px;
@@ -178,6 +174,16 @@ z-index: 1000;
     transform: translateY(-20px);
     background: #3BA5DC;
 box-shadow: 0px 4px 0px #27688C;
+border-radius: 50px;
+color: white;
+}
+
+.finish-poll{
+      position: absolute;
+    right: 10%;
+    transform: translateY(-20px);
+    background: #ea0606;
+box-shadow: 0px 4px 0px #7D2646;
 border-radius: 50px;
 color: white;
 }
