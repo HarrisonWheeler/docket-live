@@ -1,5 +1,5 @@
 <template>
-  <div class="row my-2">
+  <div class="row my-2" v-if="account.role == 'staff'">
     <div class="col-md-6 col-4 d-flex align-items-center">
     <i class="mdi mdi-eye nav-icon mdi-24px"></i>
     <i class="mdi mdi-arrow-right-thin nav-icon ms-5"></i>
@@ -19,7 +19,8 @@
 
 
 <script>
-import { onMounted, ref } from "@vue/runtime-core"
+import { computed, onMounted, ref } from "@vue/runtime-core"
+import { AppState } from "../AppState"
 export default {
   setup(){
     const muted = ref(false)
@@ -31,6 +32,7 @@ export default {
     })
     return {
       muted,
+      account: computed(() => AppState.account),
       toggleAudio(){
         muted.value = !muted.value
         const music = document.getElementById('theme')

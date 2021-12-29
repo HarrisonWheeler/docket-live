@@ -10,7 +10,7 @@
         <h2 class="code-shadow">Join Code: {{activeSession.sessionCode}}</h2>
       </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mt-md-0 mt-3">
       <div class="col-3">
         <p class="text-warning m-0">Who's All Here?</p>
       </div>
