@@ -36,6 +36,17 @@ class PollSessionsService {
     }
     return updated
   }
+
+  async joinPollSession(code, userId) {
+    const session = await dbContext.PollSessions.findOne({ sessionCode: code })
+    if (session.players.includes(userId)) {
+      return session
+    } else {
+      session.players.push(userId)
+      await session.save()
+      return session
+    }
+  }
 }
 
 export const pollSessionsService = new PollSessionsService()

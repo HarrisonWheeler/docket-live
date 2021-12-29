@@ -11,6 +11,7 @@ export class PollSessionsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getPollSessions)
       .get('/:id', this.getPollSessionById)
+      .put('/:code', this.joinPollSession)
       .use(checkRole)
       .get('/:id/answers', this.getAnswersByPollSession)
       .post('', this.createPollSession)
@@ -39,6 +40,14 @@ export class PollSessionsController extends BaseController {
     try {
       const answers = await answersService.getByPollSessionId(req.params.id)
       res.sed(answers)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async joinPollSession(req, res, next) {
+    try {
+      res.send(await pollSessionsService.joinPollSession(req.params.code, req.userInfo.id))
     } catch (error) {
       next(error)
     }
