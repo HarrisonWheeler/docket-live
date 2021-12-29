@@ -97,7 +97,9 @@ export default {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
          setInterval(() => {
-          time.value -= 1
+           if(time.value > 0){
+             time.value -= 1
+           }
         }, 1000)
       } catch (error) {
         logger.error(error)
@@ -115,6 +117,7 @@ export default {
         nextQuestion++
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
         await questionsService.setActiveQuestion(nextQuestion)
+        time.value = 60
       }
 
     }
