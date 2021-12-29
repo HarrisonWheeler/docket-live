@@ -18,14 +18,16 @@
             <button class="btn start-timer ms-2 " v-if="!timer"  @click="startTimer">Start Timer?</button>
             <button class="btn start-poll ms-2 " v-else @click="startPoll">Start Poll</button>
       </div>
+      <div class="col-4" v-else></div>
       <div class="col-3 text-end">
         <span class="join-timer p-3 text-center">{{time}}</span>
       </div>
       <div class="col-10 player-area">
         <div class="row">
-          <div class="col-3 player-bubble my-2">
-            <p class="mx-2">
-            FakePerson here!
+          <div class="col-md-4 player-bubble my-2" v-for="(p, index) in activeSession.currentPlayers" :key="index">
+            <p class="m-2">
+              <img :src="p.picture" class="profile-pic" alt="">
+            {{p.name}}
             </p>
           </div>
         </div>
@@ -82,6 +84,12 @@ export default {
   font-size: 75px;
   color: #FFFFFF;
 text-shadow: 0px 4px 0px #ABC1CD;
+}
+
+.profile-pic{
+  width: 61px;
+height: 61px;
+border-radius: 50%;
 }
 
 .class-shadow{
