@@ -8,7 +8,7 @@ class PollSessionsService {
   }
 
   async getPollSessionById(id) {
-    const session = await dbContext.PollSessions.findOne({ _id: id }).populate('poll')
+    const session = await dbContext.PollSessions.findOne({ _id: id }).populate('poll').populate('currentPlayers')
     if (!session) {
       throw new BadRequest('No Session Found')
     }
@@ -39,7 +39,7 @@ class PollSessionsService {
 
   async joinPollSession(code, userId) {
     const session = await dbContext.PollSessions.findOne({ sessionCode: code })
-    if (session.players.includes(userId)) {
+    if (session.players.includes(userId.toString())) {
       return session
     } else {
       session.players.push(userId)

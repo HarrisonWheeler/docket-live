@@ -11,7 +11,7 @@ export class PollSessionsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getPollSessions)
       .get('/:id', this.getPollSessionById)
-      .put('/:code', this.joinPollSession)
+      .put('/:code/join', this.joinPollSession)
       .use(checkRole)
       .get('/:id/answers', this.getAnswersByPollSession)
       .post('', this.createPollSession)
