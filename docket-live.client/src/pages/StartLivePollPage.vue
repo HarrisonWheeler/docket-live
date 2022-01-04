@@ -65,8 +65,10 @@ export default {
       startTimer(){
         timer.value = true
         setInterval(() => {
-          time.value -= 1
-          console.log(time.value)
+          if(time.value > 0){
+            time.value -= 1
+            console.log(time.value)
+          }
         }, 1000)
       },
       startPoll(){

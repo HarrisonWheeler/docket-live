@@ -26,8 +26,10 @@ export default {
     const muted = ref(false)
     onMounted(() => {
       setTimeout(() => {
-        const song = document.getElementById('theme')
-        song.play()
+        if(AppState.account.role == 'staff'){
+          const song = document.getElementById('theme')
+          song.play()
+        }
       }, 2000)
     })
     return {
