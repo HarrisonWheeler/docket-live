@@ -25,6 +25,12 @@ class PollSessionsService{
     AppState.activeSession = res.data
     return res.data.id
   }
+
+  async joinPoll(code){
+    const res = await api.put('api/pollSessions/' + code + '/join')
+    AppState.activeSession = res.data
+    return res.data.id
+  }
 }
 
 

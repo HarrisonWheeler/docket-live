@@ -2,11 +2,14 @@
 <Navbar />
   <div class="container-fluid">
     <div class="row height justify-content-center align-items-center">
-      <div class="col-md-4 col-11 bg-primary custom-card">
-        <p class="ms-5 my-2">Enter Poll Code!</p>
+      <div class="col-md-4 col-11 bg-primary custom-card text-center">
+        <p class=" my-2">
+          <b>
+Enter Poll Code!
+          </b></p>
         <form @submit.prevent="joinPoll">
         <div class="d-flex justify-content-center">
-        <input type="text" class="code-input w-75 text-center" placeholder="xxxx" maxlength="4" required>
+        <input type="text" class="code-input w-75 text-center" placeholder="xxxx" maxlength="4" required minlength="4" v-model="code">
         </div>
         <div class="d-flex justify-content-center my-3">
         <button class="btn btn-warning button w-50">Join</button>
@@ -19,12 +22,22 @@
 
 
 <script>
+import { ref } from "@vue/reactivity"
+import { pollSessionsService } from "../services/PollSessionsService"
+import { logger } from "../utils/Logger"
+import { router } from "../router"
 export default {
   setup(){
+    const code = ref('')
     return {
-      joinPoll(){
-        console.log('joining')
-
+      code,
+      async joinPoll(){
+        try {
+          const activeId = await pollSessionsService.joinPoll(code.value)
+          router.push({name: 'StartLivePollPage', params: {id: activeId }})
+        } catch (error) {
+          logger.error(error)
+        }
       }
     }
   }

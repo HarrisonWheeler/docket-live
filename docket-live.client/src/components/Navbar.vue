@@ -2,7 +2,9 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
-        <p class="text-primary mb-0">Docket.live.Instructors</p>
+        <p class="text-primary mb-0" v-if="account.role == 'staff'">Docket.live.Instructors</p>
+        <p class="text-primary mb-0" v-else>Docket.live</p>
+
       </div>
     </router-link>
     <button
@@ -75,6 +77,7 @@ export default {
   setup() {
     return {
       user: computed(() => AppState.user),
+      account: computed(() => AppState.account),
       async login() {
         AuthService.loginWithPopup()
       },

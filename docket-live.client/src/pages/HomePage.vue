@@ -24,6 +24,8 @@ export default {
     watchEffect(() => {
         if(AppState.account.role == 'staff'){
     router.push({name: 'LivePollsPage'})
+  } else if(AppState.account.name){
+    router.push({name: 'StudentLandingPage'})
   }
     })
     return{
