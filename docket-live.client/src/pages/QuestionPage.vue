@@ -67,11 +67,8 @@
           </div>
         </div>
          <div class="progress mt-3">
-          <div class="progress-bar" role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar gradient" role="progressbar" style="width: 70%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
 
-          <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-
-          <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
       </div>
 
@@ -145,6 +142,11 @@ box-shadow: 0px 5px 0px #D7D7D7;
 backdrop-filter: blur(20px);
 border-radius: 5px;
 height: 40vh;
+}
+
+.gradient{
+  background: linear-gradient(to right, #e5405e 0%, #ffdb3a 45%, #3fffa2 100%);
+  transition: ease;
 }
 
 .question-label{

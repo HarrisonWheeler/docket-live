@@ -1,8 +1,6 @@
 <template>
   <div class="row my-2" v-if="account.role == 'staff'">
     <div class="col-md-6 col-4 d-flex align-items-center">
-    <i class="mdi mdi-eye nav-icon mdi-24px"></i>
-    <i class="mdi mdi-arrow-right-thin nav-icon ms-5"></i>
 
     </div>
 
