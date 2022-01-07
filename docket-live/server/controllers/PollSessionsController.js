@@ -1,6 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { answersService } from '../services/AnswersService'
 import { pollSessionsService } from '../services/PollSessionsService'
+import { socketProvider } from '../SocketProvider'
 import BaseController from '../utils/BaseController'
 import { checkRole } from '../utils/CheckRole'
 
@@ -47,7 +48,9 @@ export class PollSessionsController extends BaseController {
 
   async joinPollSession(req, res, next) {
     try {
-      res.send(await pollSessionsService.joinPollSession(req.params.code, req.userInfo.id))
+      const poll = await pollSessionsService.joinPollSession(req.params.code, req.userInfo.id)
+      socketProvider.messageRoom(`Poll${poll.id}`, 'NEW_PLAYER', req.userInfo)
+      res.send(poll)
     } catch (error) {
       next(error)
     }

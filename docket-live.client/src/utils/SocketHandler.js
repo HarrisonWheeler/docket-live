@@ -51,7 +51,7 @@ export class SocketHandler {
   }
 
   joinRoom(pollSessionId){
-    this.socket?.io.emit("JOIN_ROOM", `Poll_${pollSessionId}`)
+    this.socket.emit("JOIN_ROOM", `Poll${pollSessionId}`)
     logger.log("JOINED_ROOM", pollSessionId)
   }
 

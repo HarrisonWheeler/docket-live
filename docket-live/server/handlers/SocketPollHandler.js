@@ -1,5 +1,5 @@
 import { SocketHandler } from '../utils/SocketHandler'
-
+import { logger } from '../utils/Logger'
 export class SocketPollHandler extends SocketHandler {
   /**
    * @param {import("socket.io").Server} io
@@ -12,6 +12,7 @@ export class SocketPollHandler extends SocketHandler {
   }
 
   joinRoom(roomName) {
+    logger.log('someone is joining room', roomName)
     this.socket.join(roomName)
   }
 }
