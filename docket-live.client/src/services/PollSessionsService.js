@@ -3,6 +3,7 @@ import { PollSession } from "../models/PollSession"
 import { router } from "../router"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
+import { socketService } from "./SocketService"
 
 class PollSessionsService{
 
@@ -29,6 +30,7 @@ class PollSessionsService{
   async joinPoll(code){
     const res = await api.put('api/pollSessions/' + code + '/join')
     AppState.activeSession = res.data
+    socketService.joinRoom(res.data.id)
     return res.data.id
   }
 }

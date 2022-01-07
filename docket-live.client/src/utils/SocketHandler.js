@@ -50,6 +50,11 @@ export class SocketHandler {
     this.socket?.emit(SOCKET_EVENTS.authenticate, bearerToken)
   }
 
+  joinRoom(pollSessionId){
+    this.socket?.io.emit("JOIN_ROOM", `Poll_${pollSessionId}`)
+    logger.log("JOINED_ROOM", pollSessionId)
+  }
+
   onError(error) {
     logger.error('[SOCKET_ERROR]', error)
   }
