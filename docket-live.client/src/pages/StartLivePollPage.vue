@@ -24,7 +24,7 @@
       <div class="col-10 player-area">
         <div class="row my-4">
           <div class="col-md-6 col-lg-3 col-12  p-2" v-for="(p, index) in activeSession.currentPlayers" :key="index">
-            <div class="player-bubble p-1">
+            <div class="player-bubble p-1" :style="{ 'background-color': colors[index % 5] }">
             <p class="m-2">
               <img :src="p.picture" class="profile-pic" alt="">
             {{p.name}}
@@ -144,7 +144,6 @@ z-index: 1000;
 }
 
 .player-bubble{
-  background: #EA5DB1;
 border-radius: 50px;
 }
 </style>

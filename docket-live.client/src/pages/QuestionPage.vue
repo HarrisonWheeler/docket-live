@@ -48,7 +48,7 @@
       <div class="col-10 results">
         <div class="row">
           <div class="col-4 mt-4">
-            1
+            answered
           </div>
           <div class="col-4 text-center mt-4">
             <div class="row ">
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="col-4 text-end mt-4">
-            8
+            remaining
           </div>
         </div>
          <div class="progress mt-3">
