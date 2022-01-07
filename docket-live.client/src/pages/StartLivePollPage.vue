@@ -45,6 +45,7 @@ import { logger } from "../utils/Logger"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { router } from "../router"
+import { socketService } from "../services/SocketService"
 export default {
   setup(){
     const route = useRoute()
@@ -52,7 +53,8 @@ export default {
     const time =  ref(60)
     onMounted(async() => {
       try {
-        await pollSessionsService.getById(route.params.id)
+        const pollSession = await pollSessionsService.getById(route.params.id)
+        socketService.joinRoom(pollSession.id)
       } catch (error) {
         logger.error(error)
       }
