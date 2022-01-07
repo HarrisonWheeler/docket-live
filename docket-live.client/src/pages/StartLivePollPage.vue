@@ -23,12 +23,14 @@
         <span class="join-timer p-3 text-center">{{time}}</span>
       </div>
       <div class="col-10 player-area">
-        <div class="row">
-          <div class="col-md-4 player-bubble my-2" v-for="(p, index) in activeSession.currentPlayers" :key="index">
+        <div class="row my-4">
+          <div class="col-md-6 col-lg-3 col-12  p-2" v-for="(p, index) in activeSession.currentPlayers" :key="index">
+            <div class="player-bubble p-1">
             <p class="m-2">
               <img :src="p.picture" class="profile-pic" alt="">
             {{p.name}}
             </p>
+            </div>
           </div>
         </div>
       </div>
@@ -91,8 +93,8 @@ text-shadow: 0px 4px 0px #ABC1CD;
 }
 
 .profile-pic{
-  width: 61px;
-height: 61px;
+  width: 45px;
+height: 45px;
 border-radius: 50%;
 }
 
