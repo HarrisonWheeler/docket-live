@@ -15,12 +15,11 @@
         <p class="text-warning m-0">Who's All Here?</p>
       </div>
       <div class="col-4 d-flex justify-content-center" v-if="account.role == 'staff'">
-            <button class="btn start-timer ms-2 " v-if="!timer"  @click="startTimer">Start Timer?</button>
-            <button class="btn start-poll ms-2 " v-else @click="startPoll">Start Poll</button>
+            <button class="btn start-poll ms-2 " @click="startPoll">Start Poll</button>
       </div>
       <div class="col-4" v-else></div>
       <div class="col-3 text-end">
-        <span class="join-timer p-3 text-center">{{time}}</span>
+        <span class="join-timer p-3 text-center">{{activeSession.currentPlayers?.length}}</span>
       </div>
       <div class="col-10 player-area">
         <div class="row my-4">
@@ -51,8 +50,7 @@ import { socketService } from "../services/SocketService"
 export default {
   setup(){
     const route = useRoute()
-    const timer = ref(false)
-    const time =  ref(60)
+    const colors = ["#EAD35D", "#EA5D5D", "#EA5DB1", "#86E29B", "#3BA5DC"]
     onMounted(async() => {
       try {
         const pollSession = await pollSessionsService.getById(route.params.id)
@@ -62,19 +60,9 @@ export default {
       }
     })
     return {
-      timer,
-      time,
+      colors,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
-      startTimer(){
-        timer.value = true
-        setInterval(() => {
-          if(time.value > 0){
-            time.value -= 1
-            console.log(time.value)
-          }
-        }, 1000)
-      },
       startPoll(){
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: 1}})
       }
