@@ -14,7 +14,10 @@ class SocketService extends SocketHandler {
 
   addPlayer(player){
     logger.log("socketPlayer", player)
-    AppState.activeSession.currentPlayers.push(player)
+    if(!AppState.players.includes(player.id)){
+      AppState.activeSession.currentPlayers.push(player)
+
+    }
   }
 
   onError(e) {
