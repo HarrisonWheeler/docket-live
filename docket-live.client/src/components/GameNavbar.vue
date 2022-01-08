@@ -21,15 +21,7 @@ import { computed, onMounted, ref } from "@vue/runtime-core"
 import { AppState } from "../AppState"
 export default {
   setup(){
-    const muted = ref(false)
-    onMounted(() => {
-      setTimeout(() => {
-        if(AppState.account.role == 'staff'){
-          const song = document.getElementById('theme')
-          song.play()
-        }
-      }, 2000)
-    })
+    const muted = ref(true)
     return {
       muted,
       account: computed(() => AppState.account),
