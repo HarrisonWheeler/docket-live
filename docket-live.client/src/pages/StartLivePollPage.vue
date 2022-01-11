@@ -105,6 +105,7 @@ box-shadow: 0px 5px 0px #D7D7D7;
 backdrop-filter: blur(20px);
 border-radius: 5px;
 height: 55vh;
+overflow-y: auto;
 }
 
 .start-poll{
