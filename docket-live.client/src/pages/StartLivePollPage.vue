@@ -24,7 +24,7 @@
       <div class="col-10 player-area">
         <div class="row my-4">
           <div class="col-md-6 col-lg-3 col-12  p-2" v-for="(p, index) in activeSession.currentPlayers" :key="index">
-            <div class="player-bubble p-1" :style="{ 'background-color': colors[index % 5] }">
+            <div class="player-bubble p-1" :class="{'animate__animated animate__tada': account.role == 'staff'}" :style="{ 'background-color': colors[index % 5] }">
             <p class="m-2">
               <img :src="p.picture" class="profile-pic" alt="">
             {{p.name}}
@@ -47,6 +47,7 @@ import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { router } from "../router"
 import { socketService } from "../services/SocketService"
+import 'animate.css';
 export default {
   setup(){
     const route = useRoute()
