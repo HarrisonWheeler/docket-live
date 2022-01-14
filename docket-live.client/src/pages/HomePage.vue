@@ -4,10 +4,6 @@
     <div class="home-card bg-white rounded elevation-3 bg-primary h-50 d-flex align-items-center justify-content-center flex-column">
      <button class="btn btn-success login" @click="login">
       <b>LOGIN</b> </button>
-
-      <button @click="logout">Logout</button>
-
-
     </div>
   </div>
 </template>

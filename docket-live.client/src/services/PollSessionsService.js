@@ -1,6 +1,5 @@
 import { AppState } from "../AppState"
 import { PollSession } from "../models/PollSession"
-import { router } from "../router"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 import { socketService } from "./SocketService"
@@ -32,6 +31,12 @@ class PollSessionsService{
     const res = await api.put('api/pollSessions/' + code + '/join')
     AppState.activeSession = res.data
     return res.data.id
+  }
+
+
+  async cancelPollSession(){
+    const session = AppState.activeSession
+    const res = await api.delete('api/pollSessions/' + session.id)
   }
 }
 

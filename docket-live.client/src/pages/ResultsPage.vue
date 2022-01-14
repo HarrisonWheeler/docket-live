@@ -7,9 +7,6 @@
           </div>
         </div>
           <div class="row justify-content-center">
-            <div class="col-12 text-center">
-              <p>Results coming soon</p>
-            </div>
           <PollComponent v-for="p in polls" :key="p.id" :poll="p" />
 
           </div>

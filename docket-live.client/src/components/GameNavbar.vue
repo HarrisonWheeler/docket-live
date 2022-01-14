@@ -5,8 +5,8 @@
     </div>
 
     <div class="col-md-6 col-8 d-flex align-items-center justify-content-end">
-      <button class="btn nav-btn me-5 w-25 d-none d-md-block">Cancel Poll</button>
-      <button class="btn nav-btn me-5 w-50 d-block d-md-none">Cancel Poll</button>
+      <button class="btn nav-btn me-5 w-25 d-none d-md-block" @click="cancelPollSession">Cancel Poll</button>
+      <button class="btn nav-btn me-5 w-50 d-block d-md-none" @click="cancelPollSession">Cancel Poll</button>
       <i class="mdi mdi-music-note-eighth nav-icon mdi-36px" @click="toggleAudio" v-if="!muted"></i>
       <i class="mdi mdi-volume-mute nav-icon mdi-36px" @click="toggleAudio" v-else></i>
     <audio loop  id="theme">
@@ -19,6 +19,10 @@
 <script>
 import { computed, onMounted, ref } from "@vue/runtime-core"
 import { AppState } from "../AppState"
+import { logger } from "../utils/Logger"
+import { pollSessionsService } from "../services/PollSessionsService"
+import { router } from "../router"
+import Pop from "../utils/Pop"
 export default {
   setup(){
     const muted = ref(true)
@@ -29,6 +33,16 @@ export default {
         muted.value = !muted.value
         const music = document.getElementById('theme')
         muted.value ? music.pause() : music.play()
+      },
+      async cancelPollSession(){
+        try {
+          if(await Pop.confirm('Are you sure? this will cancel the current poll')){
+            await pollSessionsService.cancelPollSession()
+            router.push({name: "LivePollsPage"})
+          }
+        } catch (error) {
+          logger.error(error)
+        }
       }
     }
   }

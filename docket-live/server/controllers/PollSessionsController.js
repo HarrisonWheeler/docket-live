@@ -17,6 +17,7 @@ export class PollSessionsController extends BaseController {
       .get('/:id/answers', this.getAnswersByPollSession)
       .post('', this.createPollSession)
       .put('/:id', this.editPollSession)
+      .delete('/:id', this.deletePollSession)
   }
 
   async getPollSessions(req, res, next) {
@@ -71,6 +72,14 @@ export class PollSessionsController extends BaseController {
       req.body.id = req.params.id
       const session = await pollSessionsService.editPollSession(req.body)
       res.send(session)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async deletePollSession(req, res, next) {
+    try {
+      res.send(await pollSessionsService.deletePollSession(req.params.id))
     } catch (error) {
       next(error)
     }

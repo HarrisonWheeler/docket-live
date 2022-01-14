@@ -47,6 +47,12 @@ class PollSessionsService {
       return session
     }
   }
+
+  async deletePollSession(id) {
+    const session = await this.getPollSessionById(id)
+    await dbContext.PollSessions.findOneAndDelete({ _id: session.id })
+    return 'Session canceled'
+  }
 }
 
 export const pollSessionsService = new PollSessionsService()
