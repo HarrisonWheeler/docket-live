@@ -27,9 +27,9 @@ class PollSessionsService {
   async editPollSession(body) {
     const session = await this.getPollSessionById(body.id)
     body.userId = session.userId
-    body.className = body.className == null ? body.className : session.className
-    body.isActive = body.isActive == null ? body.isActive : session.isActive
-    body.isLive = body.isLive == null ? body.isLive : session.isLive
+    body.className = body.className == null ? session.className : body.className
+    body.isActive = body.isActive == null ? session.isActive : body.isActive
+    body.isLive = body.isLive == null ? session.isLive : body.isLive
     const updated = await dbContext.PollSessions.findOneAndUpdate({ _id: session.id }, body, { new: true })
     if (!updated) {
       throw new BadRequest('Unable To Edit')

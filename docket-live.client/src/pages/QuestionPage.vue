@@ -115,6 +115,13 @@ export default {
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
         await questionsService.setActiveQuestion(nextQuestion)
         time.value = 60
+      },
+      async finishPoll(){
+        try {
+          await pollSessionsService.finishPollSession()
+        } catch (error) {
+          logger.error(error)
+        }
       }
 
     }
