@@ -119,6 +119,7 @@ export default {
       async finishPoll(){
         try {
           await pollSessionsService.finishPollSession()
+          router.push({name: 'ResultsPage'})
         } catch (error) {
           logger.error(error)
         }

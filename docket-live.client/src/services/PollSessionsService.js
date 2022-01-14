@@ -36,15 +36,13 @@ class PollSessionsService{
   async finishPollSession(){
     const sessionEnding = AppState.activeSession
     sessionEnding.isLive = false
-    console.log(sessionEnding)
-    const res = await api.put('api/pollSessions/' + sessionEnding.id, sessionEnding)
-    logger.log(res.data)
+    await api.put('api/pollSessions/' + sessionEnding.id, sessionEnding)
   }
 
 
   async cancelPollSession(){
     const session = AppState.activeSession
-    const res = await api.delete('api/pollSessions/' + session.id)
+    await api.delete('api/pollSessions/' + session.id)
   }
 }
 
