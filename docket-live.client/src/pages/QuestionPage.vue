@@ -29,7 +29,7 @@
 
 
     </div>
-    <div class="row mt-5" v-if="answered">
+    <div class="row mt-5" v-if="activeAnswer?.answer">
       <div class="col-12 text-center">
       <h1>Waiting For Next Question...</h1>
       </div>
@@ -77,7 +77,7 @@
 
 
 <script>
-import { computed, onMounted, ref, watchEffect } from "@vue/runtime-core"
+import { computed, onMounted, } from "@vue/runtime-core"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
@@ -90,32 +90,26 @@ import { socketService } from "../services/SocketService"
 export default {
   setup(){
     const route = useRoute()
-    const answered = ref(false)
     const buttonColors = ['btn-success', 'btn-primary', 'btn-warning', 'btn-danger']
     onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
-        await answersService.queryAnswers(AppState.activeQuestion.id)
+        if(AppState.account.role !== 'staff'){
+          await answersService.queryAnswers(AppState.activeQuestion.id)
+        }
         socketService.joinRoom(route.params.id)
       } catch (error) {
         logger.error(error)
       }
     })
-    // watchEffect(async() => {
-    //   try {
-    //     await questionsService.setActiveQuestion(route.params.index)
-    //   } catch (error) {
-    //     logger.error(error)
-    //   }
-    // })
     return {
       route,
-      answered,
       buttonColors,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
       activeQuestion: computed(() => AppState.activeQuestion),
+      activeAnswer: computed(() => AppState.activeAnswer),
       routeIndex: computed(() => parseInt(route.params.index, 10)),
       async nextQuestion(){
         let nextQuestion = parseInt(route.params.index, 10)
@@ -132,7 +126,6 @@ export default {
       },
       async selectAnswer(answer){
         try {
-          answered.value = true
           let newAnswer = {questionId: this.activeQuestion.id, pollId: this.activeSession.pollId, pollSessionId: this.activeSession.id, answer: answer}
           await answersService.createAnswer(newAnswer)
         } catch (error) {

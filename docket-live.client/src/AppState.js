@@ -7,5 +7,5 @@ export const AppState = reactive({
   polls: [],
   activeSession: {},
   activeQuestion: {},
-  currentAnswer: null
+  activeAnswer: null
 })
