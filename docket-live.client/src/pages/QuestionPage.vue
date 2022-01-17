@@ -29,11 +29,19 @@
 
 
     </div>
-    <div class="row" v-if="account.role !== 'staff'" >
+    <div class="row mt-5" v-if="answered">
+      <div class="col-12 text-center">
+      <h1>Waiting For Next Question...</h1>
+      </div>
+    </div>
+
+
+    <div class="row" v-else-if="account.role !== 'staff'" >
        <div class="col-6" v-for="(c, index) in activeQuestion.choices" :key="index">
         <button class="btn w-100 choice mt-5" :class="buttonColors[index]" @click="selectAnswer(c)">{{c.content}}</button>
       </div>
     </div>
+
 
     <div class="row justify-content-center mt-5" v-else>
       <div class="col-10 results">
@@ -79,24 +87,19 @@ import { router } from "../router"
 export default {
   setup(){
     const route = useRoute()
-    const time = ref(60)
+    const answered = ref(false)
     const buttonColors = ['btn-success', 'btn-primary', 'btn-warning', 'btn-danger']
     onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
-         setInterval(() => {
-           if(time.value > 0){
-             time.value -= 1
-           }
-        }, 1000)
       } catch (error) {
         logger.error(error)
       }
     })
     return {
-      time,
       route,
+      answered,
       buttonColors,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
@@ -107,7 +110,6 @@ export default {
         nextQuestion++
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
         await questionsService.setActiveQuestion(nextQuestion)
-        time.value = 60
       },
       async finishPoll(){
         try {
@@ -119,6 +121,7 @@ export default {
       },
       async selectAnswer(answer){
         try {
+          answered.value = true
           let newAnswer = {questionId: this.activeQuestion.id, pollId: this.activeSession.pollId, pollSessionId: this.activeSession.id, answer: answer}
           await questionsService.answerQuestion(newAnswer)
         } catch (error) {
