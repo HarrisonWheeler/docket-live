@@ -82,6 +82,8 @@ import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
 import { questionsService } from "../services/QuestionsService"
+import { answersService } from "../services/AnswersService"
+
 import { logger } from "../utils/Logger"
 import { router } from "../router"
 import { socketService } from "../services/SocketService"
@@ -94,6 +96,7 @@ export default {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
+        await answersService.queryAnswers(AppState.activeQuestion.id)
         socketService.joinRoom(route.params.id)
       } catch (error) {
         logger.error(error)
@@ -117,8 +120,6 @@ export default {
       async nextQuestion(){
         let nextQuestion = parseInt(route.params.index, 10)
         nextQuestion++
-        // router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
-        await questionsService.setActiveQuestion(nextQuestion)
         socketService.nextQuestion(route.params.id, nextQuestion)
       },
       async finishPoll(){
@@ -133,7 +134,7 @@ export default {
         try {
           answered.value = true
           let newAnswer = {questionId: this.activeQuestion.id, pollId: this.activeSession.pollId, pollSessionId: this.activeSession.id, answer: answer}
-          await questionsService.answerQuestion(newAnswer)
+          await answersService.createAnswer(newAnswer)
         } catch (error) {
           logger.error(error)
         }

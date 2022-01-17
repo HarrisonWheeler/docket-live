@@ -18,6 +18,11 @@ class AnswersService {
     return answers
   }
 
+  async getAnwer(query = {}) {
+    const answer = await dbContext.Answers.findOne(query)
+    return answer
+  }
+
   async createAnswer(body) {
     const answer = await dbContext.Answers.create(body)
     if (!body) {

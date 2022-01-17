@@ -7,8 +7,18 @@ export class AnswersController extends BaseController {
     super('api/answers')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('', this.getAnwers)
       .post('', this.createAnswer)
       .delete('/:id', this.deleteAnswer)
+  }
+
+  async getAnwers(req, res, next) {
+    try {
+      req.query.playerId = req.userInfo.id
+      res.send(await answersService.getAnwer(req.query))
+    } catch (error) {
+      next(error)
+    }
   }
 
   async createAnswer(req, res, next) {

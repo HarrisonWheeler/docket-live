@@ -12,7 +12,7 @@ class QuestionsService {
     AppState.activeQuestion = AppState.activeSession.poll?.questions[num]
     logger.log(AppState.activeQuestion)
   }
-async addQuestion(newQuestion){
+  async addQuestion(newQuestion){
   const res = await api.post('api/questions', newQuestion)
   logger.log(res.data)
   const index = AppState.polls.findIndex(p => p.id === newQuestion.pollId)
@@ -20,12 +20,8 @@ async addQuestion(newQuestion){
 }
 
 
-async answerQuestion(answer){
-  const res = await api.post('api/answers', answer)
-  logger.log(res.data)
-}
 
-async deleteQuestion(pollId, id){
+  async deleteQuestion(pollId, id){
   const res = await api.delete('api/polls/' + pollId + '/questions/' + id)
   logger.log(res.data)
  const found = AppState.polls.find(p => p.id == pollId)
