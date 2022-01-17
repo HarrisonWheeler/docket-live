@@ -90,14 +90,22 @@ export default {
     const route = useRoute()
     const answered = ref(false)
     const buttonColors = ['btn-success', 'btn-primary', 'btn-warning', 'btn-danger']
-    watchEffect(async() => {
+    onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
+        socketService.joinRoom(route.params.id)
       } catch (error) {
         logger.error(error)
       }
     })
+    // watchEffect(async() => {
+    //   try {
+    //     await questionsService.setActiveQuestion(route.params.index)
+    //   } catch (error) {
+    //     logger.error(error)
+    //   }
+    // })
     return {
       route,
       answered,

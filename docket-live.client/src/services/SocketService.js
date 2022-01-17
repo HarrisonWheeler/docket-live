@@ -25,6 +25,7 @@ class SocketService extends SocketHandler {
   recieveNextQuestion(payload){
     logger.log('Recieving Message', payload)
     router.push({name: 'QuestionPage', params: {id: AppState.activeSession.id, index: payload.index}})
+    AppState.activeQuestion = AppState.activeSession.poll?.questions[payload.index -1]
   }
 
   onError(e) {
