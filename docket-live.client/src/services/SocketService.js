@@ -1,4 +1,5 @@
 import { AppState } from "../AppState"
+import { router } from "../router"
 import { logger } from "../utils/Logger"
 import Pop from '../utils/Pop'
 import { SocketHandler } from '../utils/SocketHandler'
@@ -9,6 +10,7 @@ class SocketService extends SocketHandler {
     this
       .on('error', this.onError)
       .on('NEW_PLAYER', this.addPlayer)
+      .on('RECIEVE_NEXT_QUESTION', this.recieveNextQuestion)
   }
 
 
@@ -18,6 +20,11 @@ class SocketService extends SocketHandler {
       AppState.activeSession.currentPlayers.push(player)
 
     }
+  }
+
+  recieveNextQuestion(payload){
+    logger.log('Recieving Message', payload)
+    router.push({name: 'QuestionPage', params: {id: AppState.activeSession.id, index: payload.index}})
   }
 
   onError(e) {

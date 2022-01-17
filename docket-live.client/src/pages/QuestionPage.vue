@@ -77,7 +77,7 @@
 
 
 <script>
-import { computed, onMounted, ref } from "@vue/runtime-core"
+import { computed, onMounted, ref, watchEffect } from "@vue/runtime-core"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
@@ -90,7 +90,7 @@ export default {
     const route = useRoute()
     const answered = ref(false)
     const buttonColors = ['btn-success', 'btn-primary', 'btn-warning', 'btn-danger']
-    onMounted(async() => {
+    watchEffect(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
         await questionsService.setActiveQuestion(route.params.index)
@@ -109,9 +109,9 @@ export default {
       async nextQuestion(){
         let nextQuestion = parseInt(route.params.index, 10)
         nextQuestion++
-        router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
+        // router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
         await questionsService.setActiveQuestion(nextQuestion)
-        socketService.nextQuestion(route.params.id, this.activeQuestion.id, nextQuestion)
+        socketService.nextQuestion(route.params.id, nextQuestion)
       },
       async finishPoll(){
         try {

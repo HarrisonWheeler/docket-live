@@ -55,9 +55,9 @@ export class SocketHandler {
     logger.log("JOINED_ROOM", pollSessionId)
   }
 
-  nextQuestion(pollSessionId, questionId, questionIndex){
-    this.socket.emit('NEXT_QUESTION', `Poll${pollSessionId}`, questionId)
-    logger.log(`Poll${pollSessionId}`, questionId, questionIndex)
+  nextQuestion(pollSessionId, questionIndex){
+    this.socket.emit('NEXT_QUESTION', {roomName:`Poll${pollSessionId}`, index: questionIndex})
+    logger.log(`Poll${pollSessionId}`, questionIndex)
   }
 
   onError(error) {
