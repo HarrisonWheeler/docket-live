@@ -84,6 +84,7 @@ import { AppState } from "../AppState"
 import { questionsService } from "../services/QuestionsService"
 import { logger } from "../utils/Logger"
 import { router } from "../router"
+import { socketService } from "../services/SocketService"
 export default {
   setup(){
     const route = useRoute()
@@ -110,6 +111,7 @@ export default {
         nextQuestion++
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: nextQuestion}})
         await questionsService.setActiveQuestion(nextQuestion)
+        socketService.nextQuestion(route.params.id, this.activeQuestion.id, nextQuestion)
       },
       async finishPoll(){
         try {
