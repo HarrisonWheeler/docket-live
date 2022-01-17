@@ -4,7 +4,8 @@ export const Answer = new Schema({
   pollId: { type: Schema.Types.ObjectId, required: true, ref: 'Poll' },
   pollSessionId: { type: Schema.Types.ObjectId, required: true, ref: 'PollSession' },
   questionId: { type: Schema.Types.ObjectId, required: true, ref: 'Question' },
-  playerId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' }
+  playerId: { type: Schema.Types.ObjectId, required: true, ref: 'Account' },
+  answer: { type: Object, required: true }
 },
 { timestamps: true, toJSON: { virtuals: true } })
 

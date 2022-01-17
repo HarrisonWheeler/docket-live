@@ -19,6 +19,12 @@ async addQuestion(newQuestion){
   AppState.polls.splice(index, 1, res.data)
 }
 
+
+async answerQuestion(answer){
+  const res = await api.post('api/answers', answer)
+  logger.log(res.data)
+}
+
 async deleteQuestion(pollId, id){
   const res = await api.delete('api/polls/' + pollId + '/questions/' + id)
   logger.log(res.data)

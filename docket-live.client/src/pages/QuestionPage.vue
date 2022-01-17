@@ -30,17 +30,8 @@
 
     </div>
     <div class="row" v-if="account.role !== 'staff'" >
-       <div class="col-6">
-        <button class="btn btn-success w-100 choice mt-5">{{activeQuestion.choices[0].content}}</button>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-primary w-100 choice mt-5">{{activeQuestion.choices[1].content}}</button>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-warning w-100 choice my-3">{{activeQuestion.choices[2].content}}</button>
-      </div>
-      <div class="col-6">
-        <button class="btn btn-danger w-100 choice my-3">{{activeQuestion.choices[3].content}}</button>
+       <div class="col-6" v-for="(c, index) in activeQuestion.choices" :key="index">
+        <button class="btn w-100 choice mt-5" :class="buttonColors[index]" @click="selectAnswer(c)">{{c.content}}</button>
       </div>
     </div>
 
@@ -89,6 +80,7 @@ export default {
   setup(){
     const route = useRoute()
     const time = ref(60)
+    const buttonColors = ['btn-success', 'btn-primary', 'btn-warning', 'btn-danger']
     onMounted(async() => {
       try {
         await pollSessionsService.getById(route.params.id)
@@ -105,6 +97,7 @@ export default {
     return {
       time,
       route,
+      buttonColors,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
       activeQuestion: computed(() => AppState.activeQuestion),
@@ -120,6 +113,14 @@ export default {
         try {
           await pollSessionsService.finishPollSession()
           router.push({name: 'ResultsPage'})
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async selectAnswer(answer){
+        try {
+          let newAnswer = {questionId: this.activeQuestion.id, pollId: this.activeSession.pollId, pollSessionId: this.activeSession.id, answer: answer}
+          await questionsService.answerQuestion(newAnswer)
         } catch (error) {
           logger.error(error)
         }
