@@ -3,6 +3,7 @@ import { router } from "../router"
 import { logger } from "../utils/Logger"
 import Pop from '../utils/Pop'
 import { SocketHandler } from '../utils/SocketHandler'
+import { answersService } from "./AnswersService"
 
 class SocketService extends SocketHandler {
   constructor() {
@@ -22,10 +23,13 @@ class SocketService extends SocketHandler {
     }
   }
 
-  recieveNextQuestion(payload){
+  async recieveNextQuestion(payload){
     logger.log('Recieving Message', payload)
     router.push({name: 'QuestionPage', params: {id: AppState.activeSession.id, index: payload.index}})
     AppState.activeQuestion = AppState.activeSession.poll?.questions[payload.index -1]
+    if(AppState.account.role !== 'staff'){
+      await answersService.queryAnswers(AppState.activeQuestion.id)
+    }
   }
 
   onError(e) {
