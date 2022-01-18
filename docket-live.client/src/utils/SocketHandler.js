@@ -1,4 +1,5 @@
 import { io } from 'socket.io-client'
+import { AppState } from "../AppState.js"
 import { baseURL, useSockets } from '../env.js'
 import { logger } from './Logger.js'
 
@@ -51,13 +52,19 @@ export class SocketHandler {
   }
 
   joinRoom(pollSessionId){
-    this.socket.emit("JOIN_ROOM", `Poll${pollSessionId}`)
-    logger.log("JOINED_ROOM", pollSessionId)
+    if(!AppState.activeRoom){
+      this.socket.emit("JOIN_ROOM", `Poll${pollSessionId}`)
+      logger.log("JOINED_ROOM", pollSessionId)
+      AppState.activeRoom = `Poll${pollSessionId}`
+    } else {
+      logger.warn('Could not join room, already in room', AppState.activeRoom)
+    }
   }
 
   nextQuestion(pollSessionId, questionIndex){
     this.socket.emit('NEXT_QUESTION', {roomName:`Poll${pollSessionId}`, index: questionIndex})
     logger.log(`Poll${pollSessionId}`, questionIndex)
+    AppState.playerAnswers = []
   }
 
   onError(error) {
