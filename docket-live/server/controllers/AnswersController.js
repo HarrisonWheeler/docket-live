@@ -1,5 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { answersService } from '../services/AnswersService'
+import { socketProvider } from '../SocketProvider'
 import BaseController from '../utils/BaseController'
 
 export class AnswersController extends BaseController {
@@ -25,6 +26,7 @@ export class AnswersController extends BaseController {
     try {
       req.body.playerId = req.userInfo.id
       const answer = await answersService.createAnswer(req.body)
+      socketProvider.messageRoom(`Poll${answer.pollSessionId}`, 'PLAYER_ANSWER', answer)
       res.send(answer)
     } catch (error) {
       next(error)

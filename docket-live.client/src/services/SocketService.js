@@ -12,6 +12,7 @@ class SocketService extends SocketHandler {
       .on('error', this.onError)
       .on('NEW_PLAYER', this.addPlayer)
       .on('RECIEVE_NEXT_QUESTION', this.recieveNextQuestion)
+      .on('PLAYER_ANSWER', this.playerAnswer)
   }
 
 
@@ -39,6 +40,12 @@ class SocketService extends SocketHandler {
     if(AppState.account.role !== 'staff'){
       await answersService.queryAnswers(AppState.activeQuestion.id)
     }
+  }
+
+  playerAnswer(answer){
+    logger.log("Pushing player answer", answer)
+    logger.log(AppState.playerAnswers)
+    AppState.playerAnswers.push(answer)
   }
 
   onError(e) {

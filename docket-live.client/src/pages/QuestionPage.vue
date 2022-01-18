@@ -47,7 +47,7 @@
       <div class="col-10 results">
         <div class="row">
           <div class="col-4 mt-4">
-            answered
+            {{playerAnswers}}
           </div>
           <div class="col-4 text-center mt-4">
             <div class="row ">
@@ -62,7 +62,7 @@
             </div>
           </div>
           <div class="col-4 text-end mt-4">
-            remaining
+            {{activeSession.currentPlayers.length}}
           </div>
         </div>
          <div class="progress mt-3">
@@ -111,6 +111,7 @@ export default {
       activeQuestion: computed(() => AppState.activeQuestion),
       activeAnswer: computed(() => AppState.activeAnswer),
       routeIndex: computed(() => parseInt(route.params.index, 10)),
+      playerAnswers: computed(() => AppState.playerAnswers.length),
       async nextQuestion(){
         let nextQuestion = parseInt(route.params.index, 10)
         nextQuestion++
