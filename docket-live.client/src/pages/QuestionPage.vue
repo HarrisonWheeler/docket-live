@@ -66,7 +66,7 @@
           </div>
         </div>
          <div class="progress mt-3">
-          <div class="progress-bar gradient" role="progressbar" style="width: 70%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+          <div class="progress-bar gradient" role="progressbar" :style="{width: progress + '%'}" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
 
             </div>
       </div>
@@ -112,6 +112,7 @@ export default {
       activeAnswer: computed(() => AppState.activeAnswer),
       routeIndex: computed(() => parseInt(route.params.index, 10)),
       playerAnswers: computed(() => AppState.playerAnswers.length),
+      progress: computed(() => AppState.playerAnswers.length / AppState.activeSession.currentPlayers.length * 100),
       async nextQuestion(){
         let nextQuestion = parseInt(route.params.index, 10)
         nextQuestion++
@@ -258,11 +259,13 @@ border-radius: 5px;
   border: 2px solid #ABC1CD;
 border-radius: 50px;
 height: 5vh;
+transition: width 2s;
 }
 
 .progress-bar{
  border-radius: 0px 15px 15px 0px;
 border-left: none;
+transition: width 1s;
 }
 
 
