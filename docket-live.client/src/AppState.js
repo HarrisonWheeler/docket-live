@@ -9,5 +9,6 @@ export const AppState = reactive({
   activeQuestion: {},
   activeAnswer: null,
   playerAnswers: [],
-  activeRoom: null
+  activeRoom: null,
+  fakeData: []
 })

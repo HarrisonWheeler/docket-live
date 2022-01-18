@@ -1,6 +1,6 @@
 class ChartService{
 
-  drawChart(){
+  drawChart(data){
     console.log('Drawing chart')
   }
 }
