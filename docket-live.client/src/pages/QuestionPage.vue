@@ -20,7 +20,7 @@
 
       </div>
       <div class="col-12 text-center" v-if="account.role !== 'staff'">
-        <span class="timer">19</span>
+        <span class="timer">{{playerAnswers}}</span>
       </div>
       <div class="col-10 text-end" v-if="account.role === 'staff'">
         <button class="btn move-on" v-if="routeIndex < activeSession.poll?.questions.length" @click="nextQuestion">Move on</button>
