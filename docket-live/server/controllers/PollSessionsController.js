@@ -4,6 +4,7 @@ import { pollSessionsService } from '../services/PollSessionsService'
 import { socketProvider } from '../SocketProvider'
 import BaseController from '../utils/BaseController'
 import { checkRole } from '../utils/CheckRole'
+import { generateCode } from '../utils/GenerateSessionCode'
 
 export class PollSessionsController extends BaseController {
   constructor() {
@@ -60,6 +61,7 @@ export class PollSessionsController extends BaseController {
   async createPollSession(req, res, next) {
     try {
       req.body.userId = req.userInfo.id
+      req.body.sessionCode = generateCode()
       const session = await pollSessionsService.createSession(req.body)
       res.send(session)
     } catch (error) {

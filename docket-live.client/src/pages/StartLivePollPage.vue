@@ -48,6 +48,7 @@ import { useRoute } from "vue-router"
 import { router } from "../router"
 import { socketService } from "../services/SocketService"
 import 'animate.css';
+import { questionsService } from "../services/QuestionsService"
 export default {
   setup(){
     const route = useRoute()
@@ -64,7 +65,8 @@ export default {
       colors,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
-      startPoll(){
+      async startPoll(){
+        await questionsService.setActiveQuestion(1)
         router.push({name: 'QuestionPage', params: {id: route.params.id, index: 1}})
       }
     }

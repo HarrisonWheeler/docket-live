@@ -1,6 +1,5 @@
 
 import { Schema } from 'mongoose'
-import { generateCode } from '../utils/GenerateSessionCode'
 
 export const PollSession = new Schema({
   pollId: { type: Schema.Types.ObjectId, ref: 'Poll', required: true },
@@ -8,7 +7,7 @@ export const PollSession = new Schema({
   className: { type: String, required: true },
   isActive: { type: Boolean, default: false },
   isLive: { type: Boolean, default: false },
-  sessionCode: { type: String, default: generateCode() },
+  sessionCode: { type: String },
   type: { type: String, enum: ['livePoll', 'survey'], default: 'livePoll' },
   players: [{ type: Schema.Types.ObjectId, ref: 'Account' }]
 

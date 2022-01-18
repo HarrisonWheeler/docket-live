@@ -15,6 +15,10 @@ class SocketService extends SocketHandler {
   }
 
 
+  /**
+   * Takes in the userInfo of the player joining the room, pushes that player into the current players arr on the activeSession
+   * @param {Object} player
+   */
   addPlayer(player){
     logger.log("socketPlayer", player)
     if(!AppState.activeSession?.players.includes(player.id)){
@@ -23,6 +27,11 @@ class SocketService extends SocketHandler {
     }
   }
 
+
+  /**
+   * This method pushes all users in a room to the next question, sets the active question in the AppState, and if not the host checks to see if the user has answered that question.
+   * @param {Object} payload
+   */
   async recieveNextQuestion(payload){
     logger.log('Recieving Message', payload)
     router.push({name: 'QuestionPage', params: {id: AppState.activeSession.id, index: payload.index}})
