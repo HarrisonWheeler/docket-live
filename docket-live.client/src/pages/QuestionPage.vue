@@ -13,7 +13,7 @@
         </p>
       </div>
       <div class="col-md-10">
-        <p class="text-warning m-0 question-label">Question 1</p>
+        <p class="text-warning m-0 question-label">Question {{routeIndex}}</p>
       </div>
       <div class="col-md-10 question-area d-flex align-items-center justify-content-center">
         <h1 class="question">{{activeQuestion.body}}?</h1>
