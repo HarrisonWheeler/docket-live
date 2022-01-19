@@ -13,6 +13,10 @@ class QuestionsService {
     logger.log(AppState.activeQuestion)
   }
 
+  toggleChart(){
+    AppState.revealChart = !AppState.revealChart
+  }
+
   async getQuestionById(pollId, questionId){
     const res = await api.get('api/polls/' + pollId + '/questions/' + questionId)
     logger.log('active Question', res.data.questions[0])

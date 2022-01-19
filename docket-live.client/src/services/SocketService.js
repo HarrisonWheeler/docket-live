@@ -24,7 +24,6 @@ class SocketService extends SocketHandler {
     logger.log("socketPlayer", player)
     if(!AppState.activeSession?.players.includes(player.id)){
       AppState.activeSession.currentPlayers.push(player)
-
     }
   }
 
@@ -39,8 +38,8 @@ class SocketService extends SocketHandler {
     AppState.activeQuestion = AppState.activeSession.poll?.questions[payload.index -1]
     if(AppState.account.role !== 'staff'){
       await answersService.queryAnswers(AppState.activeQuestion.id)
-      AppState.playerAnswers = []
     }
+    AppState.playerAnswers = []
   }
 
   playerAnswer(answer){

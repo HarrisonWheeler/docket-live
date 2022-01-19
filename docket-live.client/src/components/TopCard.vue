@@ -21,7 +21,7 @@
         <span class="timer">{{playerAnswers}}</span>
       </div>
       <div class="col-10 text-end" v-if="account.role === 'staff'">
-        <button class="btn move-on" v-if="routeIndex < activeSession.poll?.questions.length" @click="nextQuestion">Move on</button>
+        <button class="btn move-on" v-if="routeIndex < activeSession.poll?.questions.length" @click="revealChart">Move on</button>
          <button class="btn finish-poll" v-else @click="finishPoll">Finish Poll</button>
       </div>
 
@@ -37,6 +37,7 @@ import { socketService } from "../services/SocketService"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { router } from "../router"
 import { useRoute, useRouter } from "vue-router"
+import { questionsService } from "../services/QuestionsService"
 export default {
   setup(){
     const route = useRoute()
@@ -49,10 +50,8 @@ export default {
       account: computed(() => AppState.account),
       activeQuestion: computed(() => AppState.activeQuestion),
       routeIndex: computed(() => parseInt(route.params.index, 10)),
-       async nextQuestion(){
-        let nextQuestion = parseInt(route.params.index, 10)
-        nextQuestion++
-        socketService.nextQuestion(route.params.id, nextQuestion)
+      revealChart(){
+        questionsService.toggleChart()
       },
       async finishPoll(){
         try {

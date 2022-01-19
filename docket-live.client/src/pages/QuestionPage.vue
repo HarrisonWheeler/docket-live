@@ -1,14 +1,15 @@
 <template>
   <div class="container-fluid" v-if="activeQuestion.choices">
     <GameNavbar />
-    <TopCard />
+    <TopCard v-if="!revealChart" />
+    <Chart :question="activeQuestion" :answers="playerAnswers" v-else />
     <BottomCard />
   </div>
 </template>
 
 
 <script>
-import { computed, onMounted, } from "@vue/runtime-core"
+import { computed, onMounted, ref, } from "@vue/runtime-core"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
@@ -33,7 +34,10 @@ export default {
       }
     })
     return {
-      activeQuestion: computed(() => AppState.activeQuestion)
+      revealChart: computed(() => AppState.revealChart),
+      activeQuestion: computed(() => AppState.activeQuestion),
+      playerAnswers: computed(() => AppState.playerAnswers)
+
     }
   }
 }

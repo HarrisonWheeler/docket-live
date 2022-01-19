@@ -1,19 +1,23 @@
 <template>
 <div>
-  chart
 <canvas id="resultsChart"></canvas>
+<button class="btn btn-success " @click="nextQuestion">Next Question</button>
 </div>
 </template>
 
 
 <script>
-import { watchEffect } from "vue"
+import { onMounted } from "vue"
 import {chartService} from '../services/ChartService'
 import { logger } from "../utils/Logger"
+import { questionsService } from "../services/QuestionsService"
+import { useRoute } from "vue-router"
+import { socketService } from "../services/SocketService"
 export default {
   props: {answers: {type: Array, required: true}, question: {type: Object, required: true}},
   setup(props){
-    watchEffect(() => {
+    const route = useRoute()
+    onMounted(() => {
       logger.log(props.question)
         let ctx = document.getElementById('resultsChart')?.getContext('2d')
         logger.log(ctx)
@@ -22,7 +26,15 @@ export default {
           chartService.drawChart(ctx, data)
         }
       })
-    return {}
+    return {
+      route,
+         async nextQuestion(){
+        let nextQuestion = parseInt(route.params.index, 10)
+        nextQuestion++
+        questionsService.toggleChart()
+        socketService.nextQuestion(route.params.id, nextQuestion)
+      },
+    }
   }
 }
 </script>

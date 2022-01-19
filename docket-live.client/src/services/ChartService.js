@@ -21,6 +21,14 @@ function footer(){
 }
 class ChartService{
   convertToChart(raw){
+    chartData = {
+      labels: [],
+      datasets:[{
+        labels: [],
+        data: [],
+        backgroundColor:barColors
+      }]
+    }
     logger.log('converting',raw)
     chartData.question = raw.question
     let dict = {}

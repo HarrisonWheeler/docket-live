@@ -64,7 +64,6 @@ export class SocketHandler {
   nextQuestion(pollSessionId, questionIndex){
     this.socket.emit('NEXT_QUESTION', {roomName:`Poll${pollSessionId}`, index: questionIndex})
     logger.log(`Poll${pollSessionId}`, questionIndex)
-    AppState.playerAnswers = []
   }
 
   onError(error) {
