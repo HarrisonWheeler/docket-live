@@ -16,7 +16,7 @@ export class AnswersController extends BaseController {
   async getAnwers(req, res, next) {
     try {
       req.query.playerId = req.userInfo.id
-      res.send(await answersService.getAnwer(req.query))
+      res.send(await answersService.getAnswer(req.query))
     } catch (error) {
       next(error)
     }
