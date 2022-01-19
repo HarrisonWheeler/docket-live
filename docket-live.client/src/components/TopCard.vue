@@ -21,8 +21,7 @@
         <span class="timer">{{playerAnswers}}</span>
       </div>
       <div class="col-10 text-end" v-if="account.role === 'staff'">
-        <button class="btn move-on" v-if="routeIndex < activeSession.poll?.questions.length" @click="revealChart">Move on</button>
-         <button class="btn finish-poll" v-else @click="finishPoll">Finish Poll</button>
+        <button class="btn move-on" @click="revealChart">Move on</button>
       </div>
 
 
@@ -49,17 +48,8 @@ export default {
       playerAnswers: computed(() => AppState.playerAnswers.length),
       account: computed(() => AppState.account),
       activeQuestion: computed(() => AppState.activeQuestion),
-      routeIndex: computed(() => parseInt(route.params.index, 10)),
       revealChart(){
         questionsService.toggleChart()
-      },
-      async finishPoll(){
-        try {
-          await pollSessionsService.finishPollSession()
-          router.push({name: 'ResultsPage'})
-        } catch (error) {
-          logger.error(error)
-        }
       },
     }
   }
