@@ -9,7 +9,7 @@
 
 
 <script>
-import { computed, onMounted, ref, } from "@vue/runtime-core"
+import { computed, onMounted, onUnmounted, ref, } from "@vue/runtime-core"
 import { pollSessionsService } from "../services/PollSessionsService"
 import { useRoute } from "vue-router"
 import { AppState } from "../AppState"
@@ -32,6 +32,9 @@ export default {
       } catch (error) {
         logger.error(error)
       }
+    })
+    onUnmounted(() => {
+      AppState.activeRoom = null
     })
     return {
       revealChart: computed(() => AppState.revealChart),

@@ -53,14 +53,15 @@ export default {
     const colors = ["#EAD35D", "#EA5D5D", "#EA5DB1", "#86E29B", "#3BA5DC"]
     onMounted(async() => {
       try {
-        const pollSession = await pollSessionsService.getById(route.params.id)
-        socketService.joinRoom(pollSession.id)
+        await pollSessionsService.getById(route.params.id)
+        socketService.joinRoom(route.params.id)
       } catch (error) {
         logger.error(error)
       }
     })
     return {
       colors,
+      route,
       account: computed(() => AppState.account),
       activeSession: computed(() => AppState.activeSession),
       async startPoll(){
