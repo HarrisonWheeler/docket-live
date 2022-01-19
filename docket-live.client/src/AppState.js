@@ -7,6 +7,7 @@ export const AppState = reactive({
   polls: [],
   activeSession: {},
   activeQuestion: {},
+  answers: [],
   activeAnswer: null,
   playerAnswers: [],
   activeRoom: null,

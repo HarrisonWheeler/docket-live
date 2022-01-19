@@ -9,7 +9,7 @@ export class QuestionsController extends BaseController {
     super('api/questions')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('/:id', this.getQuestionById)
+      // .get('/:id', this.getQuestionById)
       .get('/:id/answers', this.getAnswersByQuestionId)
       .use(checkRole)
       .post('', this.createQuestion)

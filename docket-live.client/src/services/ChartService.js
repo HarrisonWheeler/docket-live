@@ -45,7 +45,7 @@ class ChartService{
   drawChart(ctx,raw){
     this.convertToChart(raw)
     if(chart) chart.destroy()
-    Chart.defaults.font.size = 16
+    this.configureChartDefaults()
     chart = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -66,6 +66,7 @@ class ChartService{
             }
           },
           plugins:{
+            legend: { display: false},
             tooltip: {
               callbacks: {
                 footer: footer
@@ -90,6 +91,13 @@ class ChartService{
           },
         }
       });
+    }
+
+
+    configureChartDefaults(){
+      Chart.defaults.font.size = 16
+      Chart.defaults.color = '#000000'
+      Chart.defaults.elements.bar.borderRadius = 8
     }
 
 
