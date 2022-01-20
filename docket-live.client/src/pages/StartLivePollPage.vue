@@ -5,7 +5,7 @@
       <div class="col-12" v-if="activeSession.poll">
         <h1 class=" title-shadow">{{activeSession.poll.title}}</h1>
         <h2 class="class-shadow">
-          {{activeSession.className}} - Week Here
+          {{activeSession.className}} - {{activeSession.poll.week}}
         </h2>
         <h2 class="code-shadow">Join Code: {{activeSession.sessionCode}}</h2>
       </div>

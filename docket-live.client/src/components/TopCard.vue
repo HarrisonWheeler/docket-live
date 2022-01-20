@@ -5,7 +5,7 @@
           {{activeSession.poll.title}}
         </p>
         <p class="class text-primary m-0">
-          {{activeSession.className}} - Week here
+          {{activeSession.className}} - {{activeSession.poll.week}}
 
 
         </p>
