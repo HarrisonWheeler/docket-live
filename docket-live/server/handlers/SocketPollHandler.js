@@ -26,7 +26,7 @@ export class SocketPollHandler extends SocketHandler {
 
   /**
    * Sends a message to all users in the room to navigate to the next indexed question
-   * @param {Object} payload
+   * @param {Object} payload ex: {roomName: "room", index: 1 }
    */
   nextQuestion(payload) {
     logger.log('Next Question', payload)

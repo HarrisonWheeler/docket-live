@@ -17,7 +17,7 @@ class SocketService extends SocketHandler {
 
 
   /**
-   * Takes in the userInfo of the player joining the room, pushes that player into the current players arr on the activeSession
+   * Takes in the userInfo of the player joining the room, pushes that player into the current players array on the activeSession
    * @param {Object} player
    */
   addPlayer(player){
@@ -42,6 +42,11 @@ class SocketService extends SocketHandler {
     AppState.playerAnswers = []
   }
 
+
+  /**
+   * This method pushes a players answer into the AppState.playerAnswers
+   * @param {Object} answer
+   */
   playerAnswer(answer){
     logger.log("Pushing player answer", answer)
     logger.log(AppState.playerAnswers)

@@ -9,19 +9,9 @@ export class QuestionsController extends BaseController {
     super('api/questions')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      // .get('/:id', this.getQuestionById)
       .get('/:id/answers', this.getAnswersByQuestionId)
       .use(checkRole)
       .post('', this.createQuestion)
-  }
-
-  async getQuestionById(req, res, next) {
-    try {
-      const question = await questionsService.getQuestionById(req.params.id)
-      res.send(question)
-    } catch (error) {
-      next(error)
-    }
   }
 
   async getAnswersByQuestionId(req, res, next) {

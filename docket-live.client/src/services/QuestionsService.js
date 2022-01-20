@@ -28,6 +28,9 @@ class QuestionsService {
     logger.log('anwers by questionId', res.data)
     AppState.answers = res.data
   }
+
+
+   //FIXME[epic=createQuestionResetsEdits] the create Question method resets the current edits the user made, this could be fixed by pushing the newley created question into the questions array rather then replacing the whole poll
   async addQuestion(newQuestion){
   const res = await api.post('api/questions', newQuestion)
   logger.log(res.data)

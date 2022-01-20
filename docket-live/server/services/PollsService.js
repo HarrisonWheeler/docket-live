@@ -14,8 +14,6 @@ class PollsService {
     if (!poll) {
       throw new BadRequest('Invalid Id')
     }
-
-    // TODO check role
     return poll
   }
 
@@ -27,6 +25,7 @@ class PollsService {
     return polls
   }
 
+  // FIXME[epic=PollEditing] editing a poll should no longer edit the original, instead it should create a copy of the master with the new changes
   async editPoll(body) {
     const orignalPoll = await this.getPollById(body.id)
 

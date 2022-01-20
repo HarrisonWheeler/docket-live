@@ -58,6 +58,7 @@ export class PollsController extends BaseController {
     }
   }
 
+  // FIXME[epic=PollEditing] editing a poll should no longer edit the original, instead it should create a copy of the master with the new changes
   async editPoll(req, res, next) {
     try {
       req.body.userId = req.userInfo.id
