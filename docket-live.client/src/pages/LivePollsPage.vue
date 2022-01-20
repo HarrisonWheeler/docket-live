@@ -3,7 +3,7 @@
       <div class="col-12 bg-light">
         <div class="row mt-4">
           <div class="col-md-6">
-            <input type="text" placeholder="search..." class="search w-100 ms-md-4">
+            <input type="text" placeholder="search..." class="search w-100 ms-md-4" v-model="searchQuery">
           </div>
           <div class="col-6 text-end">
             <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#createPoll">Create Poll</button>
@@ -37,6 +37,7 @@ import { logger } from "../utils/Logger"
 export default {
   setup(){
     const editable = ref({})
+    const searchQuery = ref('')
     onMounted(async() => {
       try {
         await pollsService.getPolls()
@@ -46,6 +47,7 @@ export default {
     })
     return {
       editable,
+      searchQuery,
         polls: computed(() => AppState.polls),
         async createPoll(){
           try {
