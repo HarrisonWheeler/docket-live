@@ -5,7 +5,7 @@
      <p class="m-0">
      <b>{{poll.title}}</b>
      </p>
-     <p class="m-0 text-primary" v-if="!poll.className">Week2</p>
+     <p class="m-0 text-primary" v-if="!poll.className">{{poll.week}}</p>
      <p class="m-0 text-primary" v-else>{{poll.className}}</p>
      </div>
   <div class="col-6 text-center" data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">

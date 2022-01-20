@@ -1,12 +1,14 @@
 <template>
   <header>
   </header>
-  <main class="wrap">
-    <router-view />
-  <!-- <div class="position-absolute">
+  <main class="">
+  <!-- <div class="position-absolute bubble-wrap">
     <canvas id="bubble0" class="bubble"></canvas>
     <canvas id="bubble1" class="bubble"></canvas>
   </div> -->
+  <div class="view">
+    <router-view />
+  </div>
   </main>
   <footer>
 
@@ -43,15 +45,15 @@ body {
   margin: 0;
 }
 
-// .wrap {
-//   overflow: hidden;
-//   position: relative;
-//   z-index: 0;
-//   height: 100vh;
-//   background: #536974;
-//   align-items: center;
-//   justify-content: center;
-// }
+.wrap {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  height: 100vh;
+  background: #536974;
+  align-items: center;
+  justify-content: center;
+}
 
 .bubble {
   position: fixed;
@@ -59,5 +61,13 @@ body {
   width: 100%;
   height: 100%;
 }
+
+.view{
+  z-index: 2;
+}
+
+// .bubble-wrap{
+
+// }
 
 </style>

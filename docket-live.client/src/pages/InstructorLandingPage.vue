@@ -24,7 +24,10 @@
         </router-link>
       </div>
     </div>
+    <div class="view">
 <router-view></router-view>
+
+    </div>
 
 
 

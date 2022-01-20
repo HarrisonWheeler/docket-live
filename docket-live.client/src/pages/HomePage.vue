@@ -1,6 +1,6 @@
 <template>
   <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <h1 class="mt-5 title text-light">Docket.Live</h1>
+    <h2 class="mt-5 title text-light">Docket.Live</h2>
     <div class="home-card bg-white rounded elevation-3 bg-primary h-50 d-flex align-items-center justify-content-center flex-column">
      <button class="btn btn-success login" @click="login">
       <b>LOGIN</b> </button>
