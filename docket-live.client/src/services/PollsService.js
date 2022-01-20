@@ -9,6 +9,12 @@ class PollsService{
     AppState.polls = res.data
   }
 
+  async createPoll(newPoll){
+    const res = await api.post('api/polls', newPoll)
+    logger.log(res.data)
+    AppState.polls.unshift(newPoll)
+  }
+
   async editPoll(poll){
     const res = await api.put('api/polls/' + poll.id, poll)
     logger.log(res.data)

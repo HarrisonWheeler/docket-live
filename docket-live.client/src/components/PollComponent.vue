@@ -9,7 +9,7 @@
      <p class="m-0 text-primary" v-else>{{poll.className}}</p>
      </div>
   <div class="col-6 text-center" data-bs-toggle="collapse" :data-bs-target="'#collapse-' + poll.id" aria-expanded="false" aria-controls="collapseExample">
-    <p class="m-0"><b>{{poll.questions.length}} Questions</b></p>
+    <p class="m-0"><b>{{poll.questions?.length}} Questions</b></p>
     <p class="m-0">Last Edited: {{formatDate(poll.updatedAt)}}</p>
   </div>
   <div class="col-md-1 col-3 offset-md-2 bg-success h-100 d-flex align-items-center justify-content-center" title="Go Live" @click="createPollSession" v-if="!poll.pollId">
@@ -24,7 +24,7 @@
   </div>
   <div class="row w-100">
 <div class="collapse p-0" :id="'collapse-' + poll.id" @click.stop>
-  <div class="card card-body reveal container-fluid position-relative" v-if="poll.questions.length > 0" :class="{dotted: editable}">
+  <div class="card card-body reveal container-fluid position-relative" :class="{dotted: editable}">
     <div v-if="editable">
       <EditPollComponent :poll="poll" />
          <div class="text-end position-absolute spill">
@@ -66,8 +66,11 @@ export default {
     return {
       editable,
       formatDate(date){
+        if(date){
         const formatted = new Date(date).toLocaleString('en-US', {day: 'numeric', month: 'short', year: 'numeric'})
-        return formatted
+          return formatted
+        }
+         return "Never edited"
       },
       async toggleEdit(){
         if(editable.value){

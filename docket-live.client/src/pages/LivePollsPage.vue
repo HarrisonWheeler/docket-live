@@ -5,24 +5,38 @@
           <div class="col-md-6">
             <input type="text" placeholder="search..." class="search w-100 ms-md-4">
           </div>
+          <div class="col-6 text-end">
+            <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#createPoll">Create Poll</button>
+          </div>
         </div>
           <div class="row justify-content-center">
           <PollComponent v-for="p in polls" :key="p.id" :poll="p" />
 
           </div>
       </div>
-
+      <Modal id="createPoll">
+        <template #modal-title>
+          <h5>Create Poll</h5>
+        </template>
+        <template #modal-body>
+          <input class="w-100" type="text" placeholder="Title..." v-model="editable.title">
+          <input class="w-100 mt-4" type="text" placeholder="Week..." v-model="editable.week">
+          <button class="btn btn-success mt-4" @click="createPoll">Create</button>
+        </template>
+      </Modal>
     </div>
 </template>
 
 
 <script>
-import { computed } from "@vue/reactivity"
+import { computed, ref } from "@vue/reactivity"
 import { pollsService } from "../services/PollsService"
 import { onMounted } from "@vue/runtime-core"
 import { AppState } from "../AppState"
+import { logger } from "../utils/Logger"
 export default {
   setup(){
+    const editable = ref({})
     onMounted(async() => {
       try {
         await pollsService.getPolls()
@@ -31,7 +45,17 @@ export default {
       }
     })
     return {
-        polls: computed(() => AppState.polls)
+      editable,
+        polls: computed(() => AppState.polls),
+        async createPoll(){
+          try {
+            if(editable.value.title && editable.value.week){
+              await pollsService.createPoll(editable.value)
+            }
+          } catch (error) {
+            logger.error(error)
+          }
+        }
     }
   }
 }
